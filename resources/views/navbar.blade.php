@@ -17,13 +17,13 @@
 		    @if (Auth::check())
 			    @if (Auth::user()->admin === '0')
 			    <!-- SI ES USUARIO -->
-			    <li><a href="#">Ver Canchas</a></li>
-			    <li><a href="#">Mis Reservas</a></li>
+			    <li><a href="/reservaCancha">Ver Canchas</a></li>
+			    <li><a href="/reserva/{{Auth::user()->id}}">Mis Reservas</a></li>
 			    <!-- SI ES ADMINISTRADOR -->
 			    @else
 			    <li><a href="/canchas/form">Agregar Cancha</a></li>
 			    <li><a href="/canchas">Administrar Canchas</a></li>
-			    <li ><a href="#">Administrar Reservas</a></li>
+			    <li ><a href="/reserva">Administrar Reservas</a></li>
 			    @endif
 		    @endif
 		    @guest

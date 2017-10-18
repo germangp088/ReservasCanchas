@@ -30,6 +30,8 @@ Route::post('/canchas', 'CanchaController@create');
 Route::post('/estado', 'EstadoController@change');
 
 Route::get('/reserva', 'ReservaController@index');
+Route::get('/reservaCancha', 'ReservaController@canchas');
+Route::get('/reserva/{id}', 'ReservaController@show');
 Route::get('/reserva/form', 'ReservaController@form');
 Route::post('/reserva', 'ReservaController@create');
 
