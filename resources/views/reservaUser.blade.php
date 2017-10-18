@@ -16,7 +16,7 @@
     <div class="container">
         <div>
             <div class="titulo" style="margin-bottom: 20px;">
-                <h1 style="color:#fff;">ADMINISTRACIÓN DE RESERVAS</h1>
+                <h1 style="color:#fff;">MIS RESERVAS</h1>
                 <div class="titleline-icon"></div>
                 
             </div>

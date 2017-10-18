@@ -23,6 +23,11 @@ class ReservaController extends Controller
 		return view('reservaForm');
     }
 
+    public function canchas()
+    {
+        return view('reservaCancha');
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -69,9 +74,8 @@ class ReservaController extends Controller
      */
     public function show($id)
     {
-        $reserva = Reserva::find($id);
-        $cancha = $reserva->cancha;
-        return view('canchas',[$cancha => $cancha]);
+        $reservas = Reserva::with(['cancha', 'user', 'turno'])->where('id_user', $id)->get();
+        return view('reservaUser',['reservas' => $reservas]);
     }
 
     /**
