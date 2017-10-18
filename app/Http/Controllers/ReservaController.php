@@ -27,9 +27,9 @@ class ReservaController extends Controller
 		return view('reservaForm');
     }
 
-    public function senia()
+    public function senia($id_cancha, $id_turno)
     {
-        return view('seniaForm');
+        return view('seniaForm',array('id_cancha' => $id_cancha), array('id_turno' => $id_turno));
     }
 
     public function verCodigo()
@@ -57,22 +57,22 @@ class ReservaController extends Controller
     {		
 	   $req->validate([
 			'id_cancha' => 'required|exists:canchas,id',
-			'id_usuario' => 'required|exists:usuario,id',
 			'id_turno' => 'required|exists:turnos,id',
-			'fecha' => 'required|date',
-			'senia' => 'required|numeric|min:0',
-			'codigo_reserva' => 'required'
+			'senia' => 'required|numeric|min:0'
 		]);
 		$reserva = new Reserva ();
 		
 		$reserva->id_cancha = $req->id_cancha;
-		$reserva->id_usuario = $req->id_usuario;
+		$reserva->id_user= \Auth::user()->id;
 		$reserva->id_turno = $req->id_turno;
-		$reserva->fecha = $req->fecha;
+		$reserva->fecha = date("Y-m-d");
 		$reserva->senia = $req->senia;
-		$reserva->codigo_reserva = $req->codigo_reserva;
+		$reserva->codigo_reserva = rand ( 1000, 8000 );
 		
         $reserva->save();
+
+        CanchasTurno::where(['id_cancha' => $reserva->id_cancha, 'id_turno' => $reserva->id_turno])->update(['reservada' => 1]);
+
         /* REDIRECCION A CODIGO DE RESERVA */
         return view('reservaCodigo',['codigo' => $reserva->codigo_reserva]);
     }
@@ -159,11 +159,18 @@ class ReservaController extends Controller
         $validator = Validator::make($validatorArray, $rules);
 
         if (!$validator->fails()) {
-			$reserva = Reserva::all()->where('id', $id)[0];
+			$reserva = Reserva::all()->where('id', $id)->first();
+            echo $reserva;
 			CanchasTurno::where(['id_cancha' => $reserva->id_cancha, 'id_turno' => $reserva->id_turno])->update(['reservada' => 0]);
 			$reserva->delete();
         }
-		
-		return redirect()->action('ReservaController@index');
+        if(\Auth::user()->admin)
+        {
+            return redirect()->action('ReservaController@index');
+        }
+        else
+        {
+            return redirect()->action('ReservaController@show', array('id' => \Auth::user()->id));
+        }
     }
 }

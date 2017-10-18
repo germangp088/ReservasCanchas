@@ -16,7 +16,7 @@
                 </div>
             </div>
             <div>
-                <h2 style="color:#fff;">Tu código de reserva es 2545643514</h2>
+                <h2 style="color:#fff;">Tu código de reserva es {{ $codigo }}</h2>
             </div>
         </div>
 </section>

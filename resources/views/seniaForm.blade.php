@@ -18,13 +18,15 @@
             <div>
             
                     <form name="sentMessage" id="contactForm"  method="POST" action="/senia/form">
-                        {{ csrf_field() }}>
+                        {{ csrf_field() }}
                         <div>
 
                             <div>
                                 <div class="form-group">
                                     <p class="login_text_size" style="color:#fff;">Introducir seña</p>
-                                    <input type="email" class="form-control" placeholder="Seña *" id="email" name="senia" required autofocus>
+                                    <input type="text" class="form-control" placeholder="Seña *" id="senia" name="senia" required autofocus>
+                                    <input type="hidden" id="id_cancha" name="id_cancha" value="{{ $id_cancha }}">
+                                    <input type="hidden" id="id_turno" name="id_turno" value="{{ $id_turno }}">
                                     <p class="help-block text-danger"></p>
                                 </div>
 

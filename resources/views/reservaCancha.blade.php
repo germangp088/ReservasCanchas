@@ -47,7 +47,7 @@
 			                    <tr class="success">
 			                        <td>{{ $reserva->hora }}</td>
 			                        <td>{{ $reserva->precio }}</td>
-			                        <td> <a href="">RESERVAR</a> </td>
+			                        <td> <a href="/senia/form/{{ $cancha->id }}/{{ $reserva->id }}">RESERVAR</a> </td>
 			                    </tr>
 			                    @endif
 					        @endforeach

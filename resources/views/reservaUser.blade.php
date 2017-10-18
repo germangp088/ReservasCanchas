@@ -44,7 +44,7 @@
                         <td>{{ $reserva->codigo_reserva }}</td>
                         <td>{{ $reserva->cancha()->first()->estado()->first()->descripcion }}</td>
 
-                        <td> <a href="">ELIMINAR</a> </td>
+                        <td> <a href="/reserva/destroy/{{ $reserva->id }}">ELIMINAR</a> </td>
                     </tr>
 		        @endforeach
 		      </tbody>
