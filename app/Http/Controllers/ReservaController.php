@@ -4,12 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Reserva;
-<<<<<<< HEAD
 use Illuminate\Support\Facades\Validator;
-=======
 use App\Http\Controllers\CanchaController;
 use App\Http\Controllers\TurnosController;
->>>>>>> 3507af82c335d7fcee18fd832ea9cfbe366789fc
 
 class ReservaController extends Controller
 {
