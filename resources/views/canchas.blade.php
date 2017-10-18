@@ -43,16 +43,23 @@
                         <td>{{ $cancha->precio_dia }}</td>
                         <td>{{ $cancha->precio_noche }}</td>
                         <td>{{ $cancha->estado()->first()->descripcion }}</td>
-                        <!-- REALIZAR UPDATE DE ESTADO ENTRE CERRADA Y LIBRE -->
-                        <td> <a href="">CERRAR</a> </td>
+						
+                        <td> 
+							@if ($cancha->estado()->first()->id != 2)
+									@if ($cancha->estado()->first()->id == 3)
+										<a class="btn btn-small btn-info" href="{{ URL::to('canchas/cambiarEstado/' . $cancha->id . '/1') }}">Habilitar</a>
+									@else
+										<a class="btn btn-small btn-info" href="{{ URL::to('canchas/cambiarEstado/' . $cancha->id . '/3') }}">Cerrar</a>
+									@endif
+							@else
+								&nbsp;
+							@endif
+						</td>
+						
                     </tr>
 		        @endforeach
 		      </tbody>
         </table>
-		
-		<!--
-		{{ $canchas }}
-        -->
     </div>
 
 </section>

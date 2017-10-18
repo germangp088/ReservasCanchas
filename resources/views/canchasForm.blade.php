@@ -20,7 +20,7 @@
     </div>
     <div>
                     <form name="sentMessage" id="contactForm"  method="POST" action="/canchas">
-                        {{ csrf_field() }}>
+                        {{ csrf_field() }}
                         <div>
                             <div>
                                 <div class="form-group">

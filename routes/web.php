@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('index');/*welcome*/
+    return view('index');
 });
 Auth::routes();
 
@@ -25,6 +25,7 @@ Route::get('/home', 'HomeController@index')->name('home'); /*home*/
 Route::get('/canchas', 'CanchaController@index');
 Route::get('/canchas/form', 'CanchaController@form');
 Route::get('/canchas/{id}', 'CanchaController@show');
+Route::get('/canchas/cambiarEstado/{id}/{idEstado}', 'CanchaController@cambiarEstado');
 Route::post('/canchas', 'CanchaController@create');
 
 Route::get('/reserva', 'ReservaController@index');
