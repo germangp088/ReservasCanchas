@@ -20,13 +20,49 @@
     </div>
 
   <div class="panel-group" id="accordion">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Cancha 1 - Futbol 5</a>
-        </h4>
-      </div>
-      <div id="collapse1" class="panel-collapse collapse in">
+
+  	@foreach ($canchas as $cancha)
+
+	    <div class="panel panel-default">
+			<div class="panel-heading">
+				<h4 class="panel-title">
+				  	<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $cancha->id }}">{{ $cancha->first()->tipoCancha()->first()->id }}</a>
+				</h4>
+			</div>
+
+    		<div id="collapse{{ $cancha->id }}" class="panel-collapse collapse in">
+        		<div class="panel-body">
+				
+        			<table class="table">
+			            <thead>
+			              <tr>
+			                <th style="color:black;">Turno</th>
+			                <th style="color:black;">Precio</th>
+			                <th style="color:black;">HACER RESERVA</th>
+			              </tr>
+			            </thead>
+			            <tbody>
+			                @foreach($turnos as $turno)
+			                    <tr class="success">
+			                        <td>{{ $turno->hora }}</td>
+			                        @if ($turno->noche != 1)
+			                        	<td>{{ $cancha->precio_dia }}</td>
+			                        @else
+			                        	<td>{{ $cancha->precio_noche }}</td>
+			                        @endif
+			                        <td> <a href="">ELIMINAR</a> </td>
+			                    </tr>
+					        @endforeach
+					      </tbody>
+			        </table>
+
+				</div>
+			</div>
+		</div>
+
+	@endforeach
+    <!--
+	<div id="collapse1" class="panel-collapse collapse in">
         <div class="panel-body">
 
         	<table class="table">
@@ -74,6 +110,7 @@
         </div>
       </div>
     </div>
+
     <div class="panel panel-default">
       <div class="panel-heading">
         <h4 class="panel-title">
@@ -183,9 +220,14 @@
       </div>
     </div>
   </div> 
+  -->
 </div>
 
 </section>
+
+{{ $canchas }}
+
+{{ $turnos }}
 
 @include ('footer')
 

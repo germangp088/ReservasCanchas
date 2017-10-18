@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Reserva;
+use App\Http\Controllers\CanchaController;
+use App\Http\Controllers\TurnosController;
 
 class ReservaController extends Controller
 {
@@ -25,7 +27,14 @@ class ReservaController extends Controller
 
     public function canchas()
     {
-        return view('reservaCancha');
+        $canchas = new CanchaController();
+        $turnos = new TurnosController();
+        
+        $arrayCanchas = $canchas->getAll();
+        $arrayTurnos = $turnos->getAll();
+
+        return view('reservaCancha', array ('canchas'=>$arrayCanchas), array('turnos' => $arrayTurnos));
+    
     }
 
     /**

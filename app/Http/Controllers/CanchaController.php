@@ -23,6 +23,12 @@ class CanchaController extends Controller
         $canchas = Cancha::all();
         return view('canchas', array('canchas' => $canchas));
     }
+
+    public function getAll()
+    {
+        $canchas = Cancha::all();
+        return $canchas;
+    }
 	
 	 public function form()
     {
