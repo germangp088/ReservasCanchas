@@ -23,7 +23,7 @@
 			    @else
 			    <li><a href="/canchas/form">Agregar Cancha</a></li>
 			    <li><a href="/canchas">Administrar Canchas</a></li>
-			    <li ><a href="#">Administrar Reservas</a></li>
+			    <li ><a href="/reserva">Administrar Reservas</a></li>
 			    @endif
 		    @endif
 		    @guest
