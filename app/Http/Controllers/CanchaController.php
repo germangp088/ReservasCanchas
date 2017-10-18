@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Cancha;
 use App\CanchaTurno;
 use App\TipoCancha;
 use App\EstadoCancha;

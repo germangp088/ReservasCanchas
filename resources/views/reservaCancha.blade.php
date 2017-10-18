@@ -43,14 +43,10 @@
 			            </thead>
 			            <tbody>
 			                @foreach($reservas as $reserva)
-			                	@if ($cancha->id == $reservas->cancha()->id)
+			                	@if ($cancha->id == $reserva->id_cancha)
 			                    <tr class="success">
-			                        <td>{{ $reservas->turno()->first()->hora }}</td>
-			                        @if ($reservas->turno()->first()->noche != 1)
-			                        	<td>{{ $cancha->precio_dia }}</td>
-			                        @else
-			                        	<td>{{ $cancha->precio_noche }}</td>
-			                        @endif
+			                        <td>{{ $reserva->hora }}</td>
+			                        <td>{{ $reserva->precio }}</td>
 			                        <td> <a href="">RESERVAR</a> </td>
 			                    </tr>
 			                    @endif
@@ -63,174 +59,10 @@
 		</div>
 
 	@endforeach
-    <!--
-	<div id="collapse1" class="panel-collapse collapse in">
-        <div class="panel-body">
 
-        	<table class="table">
-			    <thead>
-			      <tr>
-			        <th>Turno</th>
-			        <th>Hora</th>
-			        <th>Precio</th>
-			        <th>Estado</th>
-			        <th>RESERSVAR</th>
-			      </tr>
-			    </thead>
-			    <tbody> 
-			      <tr class="success">
-			        <td>Dia</td>
-			        <td>16:00</td>
-			        <td>1000</td>
-			        <td>Libre</td>
-			        <td> <a href="">RESERSVAR</a> </td>
-			      </tr>
-			      <tr class="danger">
-			        <td>Dia</td>
-			        <td>17:00</td>
-			        <td>1000</td>
-			        <td>Reservada</td>
-			        <td></td>
-			      </tr>
-			      <tr class="success">
-			        <td>Dia</td>
-			        <td>18:00</td>
-			        <td>1000</td>
-			        <td>Libre</td>
-			        <td> <a href="">RESERSVAR</a> </td>
-			      </tr>
-			      <tr class="active">
-			        <td>Nohe</td>
-			        <td>19:00</td>
-			        <td>1200</td>
-			        <td>Cerrada</td>
-			        <td></td>
-			      </tr>
-			    </tbody>
-			  </table>
-
-        </div>
-      </div>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Cancha 2 - Futbol 7</a>
-        </h4>
-      </div>
-      <div id="collapse2" class="panel-collapse collapse">
-        <div class="panel-body">
-        	
-			<table class="table">
-			    <thead>
-			      <tr>
-			        <th>Turno</th>
-			        <th>Hora</th>
-			        <th>Precio</th>
-			        <th>Estado</th>
-			        <th>RESERSVAR</th>
-			      </tr>
-			    </thead>
-			    <tbody> 
-			      <tr class="success">
-			        <td>Dia</td>
-			        <td>16:00</td>
-			        <td>1000</td>
-			        <td>Libre</td>
-			        <td> <a href="">RESERSVAR</a> </td>
-			      </tr>
-			      <tr class="danger">
-			        <td>Dia</td>
-			        <td>17:00</td>
-			        <td>1000</td>
-			        <td>Reservada</td>
-			        <td></td>
-			      </tr>
-			      <tr class="success">
-			        <td>Dia</td>
-			        <td>18:00</td>
-			        <td>1000</td>
-			        <td>Libre</td>
-			        <td> <a href="">RESERSVAR</a> </td>
-			      </tr>
-			      <tr class="active">
-			        <td>Nohe</td>
-			        <td>19:00</td>
-			        <td>1200</td>
-			        <td>Cerrada</td>
-			        <td></td>
-			      </tr>
-			    </tbody>
-			  </table>
-
-        </div>
-      </div>
-    </div>
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <h4 class="panel-title">
-          <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Cancha 3 - Futbol 5</a>
-        </h4>
-      </div>
-      <div id="collapse3" class="panel-collapse collapse">
-        <div class="panel-body">
-
-        	<table class="table">
-			    <thead>
-			      <tr>
-			        <th>Turno</th>
-			        <th>Hora</th>
-			        <th>Precio</th>
-			        <th>Estado</th>
-			        <th>RESERSVAR</th>
-			      </tr>
-			    </thead>
-			    <tbody> 
-			      <tr class="success">
-			        <td>Dia</td>
-			        <td>16:00</td>
-			        <td>1000</td>
-			        <td>Libre</td>
-			        <td> <a href="">RESERSVAR</a> </td>
-			      </tr>
-			      <tr class="danger">
-			        <td>Dia</td>
-			        <td>17:00</td>
-			        <td>1000</td>
-			        <td>Reservada</td>
-			        <td></td>
-			      </tr>
-			      <tr class="success">
-			        <td>Dia</td>
-			        <td>18:00</td>
-			        <td>1000</td>
-			        <td>Libre</td>
-			        <td> <a href="">RESERSVAR</a> </td>
-			      </tr>
-			      <tr class="active">
-			        <td>Nohe</td>
-			        <td>19:00</td>
-			        <td>1200</td>
-			        <td>Cerrada</td>
-			        <td></td>
-			      </tr>
-			    </tbody>
-			  </table>
-
-        </div>
-      </div>
-    </div>
-  </div> 
-  -->
 </div>
 
 </section>
-
-{{ $canchas }}
-
-{{ $turnos }}
-
 @include ('footer')
 
 @endsection

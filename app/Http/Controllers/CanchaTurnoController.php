@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\CanchasTurno;
+use App\Turno;
 
 class CanchaTurnoController extends Controller
 {
@@ -14,7 +16,40 @@ class CanchaTurnoController extends Controller
      */
     public function index()
     {
-        //
+		$reservas = CanchasTurno::all()->where('reservada', 0);
+
+		$turnos = Turno::all();
+		
+        $canchas = new CanchaController();
+        $arrayCanchas = $canchas->getAll()->where('id_estado_cancha', 1);
+
+		foreach ($reservas as $reserva) {
+			foreach ($turnos as $turno) {
+				if($reserva->id_turno == $turno->id)
+				{
+					$reserva->hora = $turno->hora;
+					if($turno->noche != 1)
+					{
+						foreach ($arrayCanchas as $cancha) {
+							if($cancha->id == $reserva->id_cancha)
+							{
+								$reserva->precio = $cancha->precio_dia;
+							}
+						}
+					}
+					else{
+						foreach ($arrayCanchas as $cancha) {
+							if($cancha->id == $reserva->id_cancha)
+							{
+								$reserva->precio = $cancha->precio_noche;
+							}
+						}
+					}
+				}
+			}
+		}
+		
+		return view('reservaCancha', array ('reservas'=>$reservas), array ('canchas'=>$arrayCanchas));
     }
 
     /**
@@ -29,11 +64,10 @@ class CanchaTurnoController extends Controller
             'id_turno' => 'required|exists:turnos,id',
             'reservada' => 'required|numeric|min:0'
         ]);
-        $CTnew = new CanchaTurno ();
+        $CTnew = new CanchasTurno ();
         
         $CTnew->id_cancha = $req->$idCancha;
         $CTnew->id_turno = $req->$idTurno;
-        $CTnew->reservado = $req->0;
         
         $CTnew->save();
     }
@@ -48,29 +82,7 @@ class CanchaTurnoController extends Controller
     {
         //
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function showLibres()
-    {
-        $reservas = CanchaTurno::all()->where ('reservada', 0)->get();
-
-         $canchas = new CanchaController();
-         $arrayCanchas = $canchas->getAll()->where('id_estado_cancha', 1)->get();
-
-        return view('reservaCancha', array ('reservas'=>$reservas), array ('canchas'=>$arrayCanchas));
-    }
-
-    public function showAll()
-    {
-        $reservas = Reserva::all();
-        return view('reservaCancha', array ('reservas'=>$reservas);
-    }
-
+	
     /**
      * Show the form for editing the specified resource.
      *
