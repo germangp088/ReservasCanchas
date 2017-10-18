@@ -26,7 +26,7 @@
 	    <div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
-				  	<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $cancha->id }}">{{ $cancha->first()->tipoCancha()->first()->id }}</a>
+				  	<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $cancha->id }}">{{ $cancha->tipoCancha()->first()->descripcion }}</a>
 				</h4>
 			</div>
 
@@ -50,7 +50,7 @@
 			                        @else
 			                        	<td>{{ $cancha->precio_noche }}</td>
 			                        @endif
-			                        <td> <a href="">ELIMINAR</a> </td>
+			                        <td> <a href="">RESERVAR</a> </td>
 			                    </tr>
 					        @endforeach
 					      </tbody>
