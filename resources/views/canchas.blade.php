@@ -41,7 +41,7 @@
                     @endif
                         <td>{{ $cancha->tipoCancha()->first()->descripcion }}</td>
                         <td>{{ $cancha->precio_dia }}</td>
-                        <td>{{ $cancha->precio_dia }}</td>
+                        <td>{{ $cancha->precio_noche }}</td>
                         <td>{{ $cancha->estado()->first()->descripcion }}</td>
                         <!-- REALIZAR UPDATE DE ESTADO ENTRE CERRADA Y LIBRE -->
                         <td> <a href="">CERRAR</a> </td>

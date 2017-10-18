@@ -22,20 +22,19 @@
                     <form name="sentMessage" id="contactForm"  method="POST" action="/canchas">
                         {{ csrf_field() }}>
                         <div>
-
                             <div>
                                 <div class="form-group">
                                     <p class="login_text_size" style="color:#fff;">Tipo de Cancha: </p>
-                                    <input type="text" class="form-control" name="id_tipo_cancha" id="id_tipo_cancha" value="1"/>
+									<select name="id_tipo_cancha" id="id_tipo_cancha">
+									@foreach($tiposCancha as $tipoCancha)										
+										<option value="{{ $tipoCancha->id }}"> {{ $tipoCancha->descripcion }}</option>
+									@endforeach
+									</select>
+									
                                     <p class="help-block text-danger"></p>
                                 </div>
 
-                                <div class="form-group">
-                                    <p class="login_text_size" style="color:#fff;">Estado de Cancha: </p>
-                                    <input type="text" class="form-control" name="id_estado_cancha" id="id_estado_cancha" value="1"/>
-                                    <p class="help-block text-danger"></p>
-                                </div>
-
+                                <input type="hidden" class="form-control" name="id_estado_cancha" id="id_estado_cancha" value="1"/>
                                 <input type="hidden" name="latitud" id="latitud" value="1"/>
                                 <input type="hidden" name="longitud" id="longitud" value="10"/>
 

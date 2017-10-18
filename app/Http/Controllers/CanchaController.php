@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Cancha;
+use App\TipoCancha;
 
 class CanchaController extends Controller
 {
@@ -25,7 +26,8 @@ class CanchaController extends Controller
 	
 	 public function form()
     {
-		return view('canchasForm');
+        $tiposCancha = TipoCancha::all();
+		return view('canchasForm', array('tiposCancha' => $tiposCancha));
     }
 
     /**
