@@ -25,15 +25,15 @@ class CanchaTurnoController extends Controller
     public function create($idCancha, $idTurno)
     {
         $req->validate([
-            'id_cancha' => $idCancha,
-            'id_turno' => $idTurno,
-            'reservada' => 0
+            'id_cancha' => 'required|exists:canchas,id',
+            'id_turno' => 'required|exists:turnos,id',
+            'reservada' => 'required|numeric|min:0'
         ]);
         $CTnew = new CanchaTurno ();
         
-        $CTnew->id_tipo_cancha = $req->id_tipo_cancha;
-        $CTnew->id_estado_cancha = $req->id_estado_cancha;
-        $CTnew->latitud = $req->latitud;
+        $CTnew->id_cancha = $req->$idCancha;
+        $CTnew->id_turno = $req->$idTurno;
+        $CTnew->reservado = $req->0;
         
         $CTnew->save();
     }
@@ -57,8 +57,12 @@ class CanchaTurnoController extends Controller
      */
     public function showLibres()
     {
-        $reservas = Reserva::all()->where ('reservada', 0)->get();
-        return view('reservaCancha', array ('reservas'=>$reservas);
+        $reservas = CanchaTurno::all()->where ('reservada', 0)->get();
+
+         $canchas = new CanchaController();
+         $arrayCanchas = $canchas->getAll()->where('id_estado_cancha', 1)->get();
+
+        return view('reservaCancha', array ('reservas'=>$reservas), array ('canchas'=>$arrayCanchas));
     }
 
     public function showAll()

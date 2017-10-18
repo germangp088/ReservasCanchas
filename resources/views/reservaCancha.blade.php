@@ -42,16 +42,18 @@
 			              </tr>
 			            </thead>
 			            <tbody>
-			                @foreach($turnos as $turno)
+			                @foreach($reservas as $reserva)
+			                	@if ($cancha->id == $reservas->cancha()->id)
 			                    <tr class="success">
-			                        <td>{{ $turno->hora }}</td>
-			                        @if ($turno->noche != 1)
+			                        <td>{{ $reservas->turno()->first()->hora }}</td>
+			                        @if ($reservas->turno()->first()->noche != 1)
 			                        	<td>{{ $cancha->precio_dia }}</td>
 			                        @else
 			                        	<td>{{ $cancha->precio_noche }}</td>
 			                        @endif
 			                        <td> <a href="">RESERVAR</a> </td>
 			                    </tr>
+			                    @endif
 					        @endforeach
 					      </tbody>
 			        </table>

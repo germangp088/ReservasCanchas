@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Cancha;
+use App\CanchaTurno;
 use App\TipoCancha;
 use App\EstadoCancha;
 use Illuminate\Support\Facades\Validator;
@@ -61,7 +61,8 @@ class CanchaController extends Controller
         $canchaNew->save();
 
         for ($i=1; $i <=12 ; $i++) { 
-            # code...
+            $ct = new CanchaTurno();
+            $ct->create ($canchaNew->id, $i);
         }
 
         return view ('index');
