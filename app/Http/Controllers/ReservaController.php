@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Reserva;
+use Illuminate\Support\Facades\Validator;
 
 class ReservaController extends Controller
 {
@@ -126,6 +127,20 @@ class ReservaController extends Controller
      */
     public function destroy($id)
     {
-        //
+		$rules = array(
+			'id' => 'required|exists:reservas,id',
+        );        
+		
+		$validatorArray = array(
+			'id' => $id
+			);
+		
+        $validator = Validator::make($validatorArray, $rules);
+
+        if (!$validator->fails()) {
+			Reserva::where(['id' => $id])->delete();
+        }
+		
+		return redirect()->action('ReservaController@index');
     }
 }

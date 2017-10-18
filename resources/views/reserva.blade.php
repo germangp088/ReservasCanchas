@@ -43,8 +43,9 @@
                         <td>{{ $reserva->fecha }}</td>
                         <td>{{ $reserva->codigo_reserva }}</td>
                         <td>{{ $reserva->cancha()->first()->estado()->first()->descripcion }}</td>
-
-                        <td> <a href="">ELIMINAR</a> </td>
+                        <td>
+							<a class="btn btn-small btn-danger" href="{{ URL::to('reserva/destroy/' . $reserva->id ) }}">ELIMINAR</a>
+						</td>
                     </tr>
 		        @endforeach
 		      </tbody>

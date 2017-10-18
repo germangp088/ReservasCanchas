@@ -162,6 +162,6 @@ class CanchaController extends Controller
      */
     public function destroy($id)
     {
-        //
+		//
     }
 }
