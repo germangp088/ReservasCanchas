@@ -14,8 +14,8 @@ class ReservaController extends Controller
      */
     public function index()
     {
-        $reservas = Reserva::with(['cancha', 'user', 'turno'])->where('id_user', 1)->get();
-		return view('reservas',['reservas' => $reservas]);
+         $reservas = Reserva::all();
+         return view('reserva', array('reservas' => $reservas));
     }
 	
 	 public function form()
