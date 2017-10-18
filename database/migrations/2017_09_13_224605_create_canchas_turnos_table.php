@@ -21,6 +21,7 @@ class CreateCanchasTurnosTable extends Migration
 			$table->foreign('id_cancha')->references('id')->on('canchas');
             $table->integer('id_turno')->unsigned();
 			$table->foreign('id_turno')->references('id')->on('turnos');
+            $table->boolean('reservada')->unsigned();
             $table->timestamps();
         });
     }
