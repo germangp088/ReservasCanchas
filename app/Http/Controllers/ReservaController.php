@@ -18,8 +18,18 @@ class ReservaController extends Controller
      */
     public function index()
     {
+
+        if(!\Auth::user()){
+            return redirect()->action('HomeController@index');
+        }
+        
+        if(\Auth::user()->admin){
          $reservas = Reserva::all();
          return view('reserva', array('reservas' => $reservas));
+        }
+        else{
+            return redirect()->action('HomeController@index');
+        }
     }
 	
 	 public function form()

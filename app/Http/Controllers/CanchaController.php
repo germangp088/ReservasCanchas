@@ -19,6 +19,14 @@ class CanchaController extends Controller
      */
     public function index()
     {
+        if(!\Auth::user()){
+            return redirect()->action('HomeController@index');
+        }
+
+        if(!\Auth::user()->admin){
+            return redirect()->action('HomeController@index');
+        }
+
         $canchas = Cancha::all();
         return view('canchas', array('canchas' => $canchas));
     }
@@ -31,6 +39,14 @@ class CanchaController extends Controller
 	
 	 public function form()
     {
+
+        if(!\Auth::user()){
+            return redirect()->action('HomeController@index');
+        }
+        if(!\Auth::user()->admin){
+            return redirect()->action('HomeController@index');
+        }
+
         $tiposCancha = TipoCancha::all();
 		return view('canchasForm', array('tiposCancha' => $tiposCancha));
     }
@@ -42,6 +58,14 @@ class CanchaController extends Controller
      */
     public function create(Request $req)
     {
+
+        if(!\Auth::user()){
+            return redirect()->action('HomeController@index');
+        }
+        if(!\Auth::user()->admin){
+            return redirect()->action('HomeController@index');
+        }
+
 	   $req->validate([
 			'id_tipo_cancha' => 'required|exists:tipo_canchas,id',
 			'id_estado_cancha' => 'required|exists:estado_canchas,id',
@@ -139,6 +163,14 @@ class CanchaController extends Controller
 
 	public function cambiarEstado($id, $idEstado)
 	{
+
+        if(!\Auth::user()){
+            return redirect()->action('HomeController@index');
+        }
+        if(!\Auth::user()->admin){
+            return redirect()->action('HomeController@index');
+        }
+
 		$rules = array(
 			'id' => 'required|exists:canchas,id',
         );        
@@ -164,6 +196,14 @@ class CanchaController extends Controller
      */
     public function eliminar($id)
     {
+        
+        if(!\Auth::user()){
+            return redirect()->action('HomeController@index');
+        }
+        if(!\Auth::user()->admin){
+            return redirect()->action('HomeController@index');
+        }
+
       $cancha = Cancha::find($id);
       $cancha->delete();
 
