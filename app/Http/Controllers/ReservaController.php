@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Http\Controllers\CanchaController;
 use App\Http\Controllers\TurnosController;
 use App\Reserva;
-use App\CanchaTurno;
+use App\CanchasTurno;
 
 class ReservaController extends Controller
 {
@@ -147,8 +147,8 @@ class ReservaController extends Controller
         $validator = Validator::make($validatorArray, $rules);
 
         if (!$validator->fails()) {
-			$reserva = Reserva::where(['id' => $id]);
-			CanchaTurno::where(['id_cancha' => $reserva->id_cancha, 'id_turno' => $reserva->id_turno])->update(['reservada' => 0]);
+			$reserva = Reserva::all()->where('id', $id)[0];
+			CanchasTurno::where(['id_cancha' => $reserva->id_cancha, 'id_turno' => $reserva->id_turno])->update(['reservada' => 0]);
 			$reserva->delete();
         }
 		

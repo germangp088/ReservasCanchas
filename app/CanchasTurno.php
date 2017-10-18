@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class CanchaTurno extends Model
+class CanchasTurno extends Model
 {
     public function cancha(){
         return $this->belongsToMany('App\Cancha', 'id_cancha');
