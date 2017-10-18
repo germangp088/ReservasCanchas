@@ -59,6 +59,11 @@ class CanchaController extends Controller
 		$canchaNew->precio_noche = $req->precio_noche;
 		
         $canchaNew->save();
+
+        for ($i=1; $i <=12 ; $i++) { 
+            # code...
+        }
+
         return view ('index');
     }
 

@@ -36,7 +36,6 @@ class ReservaController extends Controller
         $arrayTurnos = $turnos->getAll();
 
         return view('reservaCancha', array ('canchas'=>$arrayCanchas), array('turnos' => $arrayTurnos));
-    
     }
 
     /**
