@@ -22,7 +22,7 @@ class ReservaController extends Controller
         if(!\Auth::user()){
             return redirect()->action('HomeController@index');
         }
-        
+
         if(\Auth::user()->admin){
          $reservas = Reserva::all();
          return view('reserva', array('reservas' => $reservas));
@@ -104,8 +104,9 @@ class ReservaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show()
     {
+        $id = \Auth::user()->id;
         $reservas = Reserva::with(['cancha', 'user', 'turno'])->where('id_user', $id)->get();
         return view('reservaUser',['reservas' => $reservas]);
     }

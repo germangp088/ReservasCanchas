@@ -30,6 +30,7 @@
                 <th style="color:#fff;">Turno</th>
                 <th style="color:#fff;">Fecha</th>
                 <th style="color:#fff;">Código Resreva</th>
+                <th style="color:#fff;">Seña</th>
                 <th style="color:#fff;">Estado Cancha</th>
                 <th style="color:#fff;">LIBERAR RESERVA</th>
               </tr>
@@ -42,6 +43,7 @@
                         <td>{{ $reserva->turno()->first()->hora }}</td>
                         <td>{{ $reserva->fecha }}</td>
                         <td>{{ $reserva->codigo_reserva }}</td>
+                        <td>{{ $reserva->senia   }}</td>
                         <td>{{ $reserva->cancha()->first()->estado()->first()->descripcion }}</td>
                         <td>
 							<a class="btn btn-small btn-danger" href="{{ URL::to('reserva/destroy/' . $reserva->id ) }}">ELIMINAR</a>

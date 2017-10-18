@@ -14,9 +14,6 @@
 Route::get('/', function () {
     return view('index');
 });
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Auth::routes();
 
@@ -29,7 +26,7 @@ Route::get('/canchas/cambiarEstado/{id}/{idEstado}', 'CanchaController@cambiarEs
 Route::post('/canchas', 'CanchaController@create');
 
 Route::get('/reserva', 'ReservaController@index');
-Route::get('/reserva/{id}', 'ReservaController@show');
+Route::get('/reserva/show', 'ReservaController@show');
 Route::get('/reserva/form', 'ReservaController@form');
 Route::get('/reserva/destroy/{id}', 'ReservaController@destroy');
 
