@@ -1,0 +1,63 @@
+@extends('layouts.app')
+
+@section('content')
+
+@include ('navbar')
+
+<link rel="stylesheet" href="{{ asset('css/contacto.css') }}">  
+
+<section id="contact" style="">
+    <div class="container">
+        <div>
+            <div class="about_our_company" style="margin-bottom: 20px;">
+                <h1 style="color:#fff;">CONTACTANOS</h1>
+                <div class="titleline-icon"></div>
+                <p style="color:#fff;">Tienes alguna duda o pregunta? Dejanos tu mensaje aqui</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-8">
+                <form name="sentMessage" id="contactForm" novalidate="">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Your Name *" id="name" required="" data-validation-required-message="Introduzca su nombre.">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <input type="email" class="form-control" placeholder="Your Email *" id="email" required="" data-validation-required-message="Introduzca su eMail.">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" class="form-control" placeholder="Your Phone *" id="phone" required="" data-validation-required-message="Introduzca su numero de telefono.">
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <textarea class="form-control" placeholder="Your Message *" id="message" required="" data-validation-required-message="Escriba su mensaje."></textarea>
+                                <p class="help-block text-danger"></p>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="col-lg-12 text-center">
+                            <div id="success"></div>
+                            <button type="submit" class="btn btn-xl get">Enviar</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-4">
+            <!-- MAPA DE GOOGLE -->
+                <p style="color:#fff;">NUESTRA UBICACION</p>
+                <div class="map-responsive">
+                   <iframe src="https://www.google.com/maps/embed?pb=!1m10!1m8!1m3!1d6030.418742494061!2d-111.34563870463673!3d26.01036670629853!3m2!1i1024!2i768!4f13.1!5e0!3m2!1ses-419!2smx!4v1471908546569" width="650" height="600" frameborder="0" style="border:0" allowfullscreen></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+@include ('footer')
+
+@endsection

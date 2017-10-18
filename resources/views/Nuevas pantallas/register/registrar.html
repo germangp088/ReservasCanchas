@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <link rel="stylesheet" href="registrar.css">  
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+
+    <section id="contact" style="">
+            <div class="container">
+                <div>
+                    <div class="about_our_company" style="margin-bottom: 20px;">
+                        <h1 style="color:#fff;">REGISTRO</h1>
+                        <div class="titleline-icon"></div>
+                        <p style="color:#fff;">Introduzca sus futuros datos de usuarios</p>
+                    </div>
+                </div>
+                <div>
+                        <form name="sentMessage" id="contactForm" novalidate="">
+                            <div>
+                                <div>
+                                    <div class="form-group">
+                                        <p style="color:#fff;" style="">Introducir nombre de perfil</p>
+                                        <input type="text" class="form-control" placeholder="Tu nombre *" id="name" required="" data-validation-required-message="Introduzca su nombre del perfil.">
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p style="color:#fff;">Introducir mail</p>
+                                        <input type="email" class="form-control" placeholder="Tu Email *" id="email" required="" data-validation-required-message="Introduzca su eMail.">
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p style="color:#fff;">Introducir password</p>
+                                        <input type="tel" class="form-control" placeholder="Tu password *" id="phone" required="" data-validation-required-message="Introduzca su clave de acceso.">
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                    <div class="form-group">
+                                        <p style="color:#fff;">Introducir confirmacion de password</p>
+                                        <input type="tel" class="form-control" placeholder="Confirmacion password *" id="phone" required="" data-validation-required-message="Introduzca nuevmente su clave de acceso.">
+                                        <p class="help-block text-danger"></p>
+                                    </div>
+                                </div>
+
+                                <div class="clearfix"></div>
+                                <div class="col-lg-12 text-center">
+                                    <div id="success"></div>
+                                    <button type="submit" class="btn btn-xl get">Confirmar Registro</button>
+                                </div>
+                            </div>
+                        </form>
+                    
+                </div>
+            </div>
+    </section>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Bootstrap Example</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		
+		<link rel="stylesheet" href="navbar.css">
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+		<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
+		<!-- BARRA DE NAVEGACION -->
+		  <nav class="navbar navbar-inverse">
+		  <div class="container-fluid">
+			    <div class="navbar-header">
+			    	 <a class="navbar-brand" href="#">ARGENTO FUTBOL</a>
+			    </div>
+			    <!-- BOTONES DE LA BARRA -->
+			    <ul class="nav navbar-nav">
+				    <li class="active"><a href="#">Home</a></li>
+				    <!-- SI ES INVITADO -->
+				    <li><a href="#">Ver Canchas</a></li>
+				    <!-- SI ES USUARIO -->
+				    <li><a href="#">Ver Canchas</a></li>
+				    <li><a href="#">Mis Reservas</a></li>
+				    <!-- SI ES ADMINISTRADOR -->
+				    <li><a href="#">Agregar Cancha</a></li>
+				    <li><a href="#">Administrar Canchas</a></li>
+				    <li><a href="#">Administrar Reservas</a></li>
+				    <!-- PARA TODO TIPO DE USUARIO -->
+				    <li><a href="#">Contactanos</a></li>
+
+			    </ul>
+			    <ul class="nav navbar-nav navbar-right">
+			    	<li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+			    	<li><a href="#"><span class="glyphicon glyphicon-log-in" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"></span> Login</a></li>
+			    	<li><img src="avatar.jpg" class="img-circle" width="55" height="55"></li>
+			    	<li><a>NickUser</a></li>
+			    	<li><a href="#">Editar Perfil</a></li>
+			    	<button class="btn btn-danger navbar-btn">Log Out</button>
+			    </ul>
+		  </div>
+
+		  <!-- MODAL PARA LOGUEO DEL USUARIO -->
+		  <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+					      <div class="modal-header">
+					        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+						        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						          	<span aria-hidden="true">&times;</span>
+						        </button>
+					      </div>
+					      <div class="modal-body">
+						        <form>
+							          <div class="form-group">
+								            <label for="user-name" class="form-control-label">Nombre de Usuario:</label>
+								            <input type="text" class="form-control" id="recipient-name">
+							          </div>
+							          <div class="form-group">
+							          		<label for="user-pass" class="form-control-label">Clave de Usuario:</label>
+								            <input type="text" class="form-control" id="recipient-name">
+							          </div>
+						        </form>
+					      </div>
+					      <div class="modal-footer">
+						        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						        <button type="button" class="btn btn-primary">Send message</button>
+					      </div>
+					    </div>
+				  </div>
+			</div>
+		</nav>
+	</head>
+</html>

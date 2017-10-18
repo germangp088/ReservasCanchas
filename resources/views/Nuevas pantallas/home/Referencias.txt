@@ -1,0 +1,29 @@
+footer redes sociales
+https://bootsnipp.com/snippets/gm9QQ
+
+carrusel
+https://www.w3schools.com/bootstrap/bootstrap_carousel.asp
+
+barra de navegacion
+https://www.w3schools.com/bootstrap/bootstrap_navbar.asp
+
+formato de imagenes
+https://www.w3schools.com/bootstrap/bootstrap_images.asp
+
+comentarios en html
+http://lineadecodigo.com/html/comentarios-en-html/
+
+columnas
+https://www.codejobs.biz/es/blog/2015/12/01/sistema-de-filas-y-columnas-de-bootstrap3-con-ejemplos
+
+colapsos para reservas
+https://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_ref_js_collapse&stacked=h
+
+tablas para reservas
+https://www.w3schools.com/bootstrap/tryit.asp?filename=trybs_table_contextual&stacked=h
+
+formulario de registro
+https://bootsnipp.com/snippets/762Z8
+
+Mapa de google
+https://bootsnipp.com/snippets/q8lyg

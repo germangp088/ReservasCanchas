@@ -12,8 +12,23 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');/*welcome*/
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home'); /*home*/
 
 Route::get('/canchas', 'CanchaController@index');
+Route::get('/canchas/form', 'CanchaController@form');
+/*Route::get('/canchas/{id}', 'CanchaController@show');*/
 Route::get('/canchas/{id}', 'CanchaController@show');
+Route::post('/canchas', 'CanchaController@create');
+Route::post('/reserva', 'ReservaController@create');
+
+Route::get('/reserva/form', 'ReservaController@form');
+
+Route::get('/contacto', 'contactoController@index');

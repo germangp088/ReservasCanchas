@@ -1,24 +1,62 @@
-<!doctype html>
-<html lang="{{ app()->getLocale() }}">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <title>Laravel</title>
+@section('content')
 
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+@include ('navbar')
 
-    </head>
-    <body>
-        <h1>Canchas</h1>
-		@foreach($canchas as $cancha)
-			<h2>{{ $cancha->tipoCancha()->first()->descripcion }}</h2>
-		@endforeach
+<link rel="stylesheet" href="{{ asset('css/reservar.css') }}">  
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+
+<section id="reserva" style="">
+
+    <div class="container">
+        <div>
+            <div class="titulo" style="margin-bottom: 20px;">
+                <h1 style="color:#fff;">ADMINISTRACIÓN DE CANCHAS</h1>
+                <div class="titleline-icon"></div>
+                
+            </div>
+        </div>
+
+        <table class="table">
+            <thead>
+              <tr">
+                <th style="color:#fff;">Cancha</th>
+                <th style="color:#fff;">Precio Día</th>
+                <th style="color:#fff;">Precio Noche</th>
+                <th style="color:#fff;">Estado</th>
+                <th style="color:#fff;">MODIFICAR</th>
+              </tr>
+            </thead>
+            <tbody>
+                @foreach($canchas as $cancha)
+                    @if ($cancha->estado()->first()->descripcion == "Cerrada")
+                    <tr class="danger">
+                    @else
+                    <tr class="success">
+                    @endif
+                        <td>{{ $cancha->tipoCancha()->first()->descripcion }}</td>
+                        <td>{{ $cancha->precio_dia }}</td>
+                        <td>{{ $cancha->precio_dia }}</td>
+                        <td>{{ $cancha->estado()->first()->descripcion }}</td>
+                        <!-- REALIZAR UPDATE DE ESTADO ENTRE CERRADA Y LIBRE -->
+                        <td> <a href="">CERRAR</a> </td>
+                    </tr>
+		        @endforeach
+		      </tbody>
+        </table>
 		
-		
-		
+		<!--
 		{{ $canchas }}
-    </body>
-</html>
+        -->
+    </div>
+
+</section>
+
+@include ('footer')
+
+@endsection

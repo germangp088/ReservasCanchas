@@ -10,8 +10,8 @@ class Reserva extends Model
         return $this->belongsTo('App\Cancha', 'id_cancha');
     }
        
-    public function usuario(){
-        return $this->belongsTo('App\Usuario', 'id_usuario');
+    public function user(){
+        return $this->belongsTo('App\User', 'id_user');
     }
        
     public function turno(){
