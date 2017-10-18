@@ -17,7 +17,7 @@
 		    @if (Auth::check())
 			    @if (Auth::user()->admin === '0')
 			    <!-- SI ES USUARIO -->
-			    <li><a href="/reservaCancha">Ver Canchas</a></li>
+			    <li><a href="/canchaTurno/index">Ver Canchas</a></li>
 			    <li><a href="/reserva/{{Auth::user()->id}}">Mis Reservas</a></li>
 			    <!-- SI ES ADMINISTRADOR -->
 			    @else
