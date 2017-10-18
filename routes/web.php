@@ -33,6 +33,11 @@ Route::get('/reservaCancha', 'ReservaController@canchas');
 Route::get('/reserva/{id}', 'ReservaController@show');
 Route::get('/reserva/form', 'ReservaController@form');
 Route::get('/reserva/destroy/{id}', 'ReservaController@destroy');
+
+Route::get('/senia/form', 'ReservaController@senia');
+Route::post('/senia/form', 'ReservaController@create');
+
 Route::post('/reserva', 'ReservaController@create');
+Route::get('/reservaCodigo', 'ReservaController@verCodigo');
 
 Route::get('/contacto', 'contactoController@index');

@@ -27,6 +27,16 @@ class ReservaController extends Controller
 		return view('reservaForm');
     }
 
+    public function senia()
+    {
+        return view('seniaForm');
+    }
+
+    public function verCodigo()
+    {
+        return view('reservaCodigo');
+    }
+
     public function canchas()
     {
         $canchas = new CanchaController();
@@ -63,6 +73,8 @@ class ReservaController extends Controller
 		$reserva->codigo_reserva = $req->codigo_reserva;
 		
         $reserva->save();
+        /* REDIRECCION A CODIGO DE RESERVA */
+        return view('reservaCodigo',['codigo' => $reserva->codigo_reserva]);
     }
 
     /**

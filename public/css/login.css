@@ -122,3 +122,13 @@ section#contact .text-danger {
     width:100%;
     position:absolute;
 }
+
+.codigo_center{
+    position:absolute;
+    width:780px;
+    height:650px;
+    left:50%;
+    top:50%;
+    margin-left:-390px;
+    margin-top:-325px;
+}
