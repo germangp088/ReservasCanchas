@@ -5,7 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Cancha;
 use App\TipoCancha;
-
+use App\EstadoCancha;
+use Illuminate\Support\Facades\Validator;
 class CanchaController extends Controller
 {
     /**
@@ -17,9 +18,6 @@ class CanchaController extends Controller
      */
     public function index()
     {
-        /*$canchas = Cancha::with(['tipoCancha', 'estado'])->where('id_estado_cancha', 1)->get();
-		return view('canchas',['canchas' => $canchas]);
-        */
         $canchas = Cancha::all();
         return view('canchas', array('canchas' => $canchas));
     }
@@ -123,24 +121,24 @@ class CanchaController extends Controller
         $canchaNew->where($id)->update();
     }
 
-	public function cambiarEstado(Request $request)
+	public function cambiarEstado($id, $idEstado)
 	{
-		$request->validate([
+		$rules = array(
 			'id' => 'required|exists:canchas,id',
-			'id_estado_cancha' => 'required|exists:estado_canchas,id'
-		]);
+        );        
 		
-		$canchaNew = new Cancha();
+		$validatorArray = array(
+			'id' => $id
+			);
 		
-		$canchaNew->id_estado_cancha = $request->idEstado;
-		echo $request->idEstado;
-		echo $request->id;
-        /*$canchaNew->where($request->id)->update();
-		
-        $canchas = Cancha::all();
-        return view('canchas', array('canchas' => $canchas));*/
+        $validator = Validator::make($validatorArray, $rules);
 
-	}	
+        if (!$validator->fails()) {
+			Cancha::where(['id' => $id])->update(['id_estado_cancha' => $idEstado]);
+        }
+		
+		return redirect()->action('CanchaController@index');
+	}
 	
     /**
      * Remove the specified resource from storage.

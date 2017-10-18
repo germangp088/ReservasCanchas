@@ -25,9 +25,8 @@ Route::get('/home', 'HomeController@index')->name('home'); /*home*/
 Route::get('/canchas', 'CanchaController@index');
 Route::get('/canchas/form', 'CanchaController@form');
 Route::get('/canchas/{id}', 'CanchaController@show');
+Route::get('/canchas/cambiarEstado/{id}/{idEstado}', 'CanchaController@cambiarEstado');
 Route::post('/canchas', 'CanchaController@create');
-
-Route::post('/estado', 'EstadoController@change');
 
 Route::get('/reserva', 'ReservaController@index');
 Route::get('/reservaCancha', 'ReservaController@canchas');

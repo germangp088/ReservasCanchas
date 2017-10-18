@@ -46,16 +46,11 @@
 						
                         <td> 
 							@if ($cancha->estado()->first()->id != 2)
-								<form method="POST" action="/estado">
-									{{ csrf_field() }}
-									<input type="hidden" name="id" id="id" value="{{ $cancha->id }}" />
 									@if ($cancha->estado()->first()->id == 3)
-										<input type="hidden" name="idEstado" id="idEstado" value="1" />
+										<a class="btn btn-small btn-info" href="{{ URL::to('canchas/cambiarEstado/' . $cancha->id . '/1') }}">Habilitar</a>
 									@else
-										<input type="hidden" name="idEstado" id="idEstado" value="3" />
+										<a class="btn btn-small btn-info" href="{{ URL::to('canchas/cambiarEstado/' . $cancha->id . '/3') }}">Cerrar</a>
 									@endif
-									<input type="submit" value="CERRAR" />
-								</form>
 							@else
 								&nbsp;
 							@endif
