@@ -4,9 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Reserva;
-
 use Illuminate\Support\Facades\Validator;
-
 use App\Http\Controllers\CanchaController;
 use App\Http\Controllers\TurnosController;
 
