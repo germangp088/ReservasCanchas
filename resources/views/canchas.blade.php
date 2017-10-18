@@ -43,16 +43,28 @@
                         <td>{{ $cancha->precio_dia }}</td>
                         <td>{{ $cancha->precio_noche }}</td>
                         <td>{{ $cancha->estado()->first()->descripcion }}</td>
-                        <!-- REALIZAR UPDATE DE ESTADO ENTRE CERRADA Y LIBRE -->
-                        <td> <a href="">CERRAR</a> </td>
+						
+                        <td> 
+							@if ($cancha->estado()->first()->id != 2)
+								<form method="POST" action="/estado">
+									{{ csrf_field() }}
+									<input type="hidden" name="id" id="id" value="{{ $cancha->id }}" />
+									@if ($cancha->estado()->first()->id == 3)
+										<input type="hidden" name="idEstado" id="idEstado" value="1" />
+									@else
+										<input type="hidden" name="idEstado" id="idEstado" value="3" />
+									@endif
+									<input type="submit" value="CERRAR" />
+								</form>
+							@else
+								&nbsp;
+							@endif
+						</td>
+						
                     </tr>
 		        @endforeach
 		      </tbody>
         </table>
-		
-		<!--
-		{{ $canchas }}
-        -->
     </div>
 
 </section>

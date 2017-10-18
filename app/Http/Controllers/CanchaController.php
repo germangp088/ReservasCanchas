@@ -78,7 +78,7 @@ class CanchaController extends Controller
     public function show($id)
     {
         $cancha = Cancha::find($id);
-        $tipo = $cancha->tipoCancha;
+        $tipo = $cancha->first()->tipoCancha;
         return view('canchas',[$tipo => $tipo]);
     }
 
@@ -103,6 +103,7 @@ class CanchaController extends Controller
     public function update(Request $request, $id)
     {
         $req->validate([
+			'id' => 'required|exists:canchas,id',
 			'id_tipo_cancha' => 'required|exists:tipo_canchas,id',
 			'id_estado_cancha' => 'required|exists:estado_canchas,id',
 			'latitud' => 'required|numeric',
@@ -122,6 +123,25 @@ class CanchaController extends Controller
         $canchaNew->where($id)->update();
     }
 
+	public function cambiarEstado(Request $request)
+	{
+		$request->validate([
+			'id' => 'required|exists:canchas,id',
+			'id_estado_cancha' => 'required|exists:estado_canchas,id'
+		]);
+		
+		$canchaNew = new Cancha();
+		
+		$canchaNew->id_estado_cancha = $request->idEstado;
+		echo $request->idEstado;
+		echo $request->id;
+        /*$canchaNew->where($request->id)->update();
+		
+        $canchas = Cancha::all();
+        return view('canchas', array('canchas' => $canchas));*/
+
+	}	
+	
     /**
      * Remove the specified resource from storage.
      *
