@@ -29,7 +29,6 @@ Route::get('/canchas/cambiarEstado/{id}/{idEstado}', 'CanchaController@cambiarEs
 Route::post('/canchas', 'CanchaController@create');
 
 Route::get('/reserva', 'ReservaController@index');
-Route::get('/reservaCancha', 'ReservaController@canchas');
 Route::get('/reserva/{id}', 'ReservaController@show');
 Route::get('/reserva/form', 'ReservaController@form');
 Route::get('/reserva/destroy/{id}', 'ReservaController@destroy');
@@ -41,3 +40,5 @@ Route::post('/reserva', 'ReservaController@create');
 Route::get('/reservaCodigo', 'ReservaController@verCodigo');
 
 Route::get('/contacto', 'contactoController@index');
+
+Route::get('/canchaTurno/index', 'CanchaTurnoController@index');
