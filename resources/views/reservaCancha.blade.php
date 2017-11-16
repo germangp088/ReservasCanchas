@@ -19,6 +19,13 @@
         </div>
     </div>
 
+    <div>
+        <div class="titulo" style="margin-bottom: 20px;">
+            <h1 style="color:#fff;">FECHA: 2017/11/16</h1>
+            <div class="titleline-icon"></div>
+        </div>
+    </div>
+
   <div class="panel-group" id="accordion">
 
   	@foreach ($canchas as $cancha)

@@ -14,18 +14,20 @@ class CanchaTurnoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(/*$fecha*/)
     {
+        //validar si es nulo cargarlo con new date.
 		$reservas = CanchasTurno::all()->where('reservada', 0);
 
 		$turnos = Turno::all();
 		
         $canchas = new CanchaController();
         $arrayCanchas = $canchas->getAll()->where('id_estado_cancha', 1);
-
+        $newArrayCanchas = array();
 		foreach ($reservas as $reserva) {
+            //foreach ($cancha as $arrayCanchas) {
 			foreach ($turnos as $turno) {
-				if($reserva->id_turno == $turno->id)
+				if(!($reserva->id_turno == $turno->id/*&& $cancha->id == reserva_cancha_id*/))
 				{
 					$reserva->hora = $turno->hora;
 					if($turno->noche != 1)
@@ -45,11 +47,13 @@ class CanchaTurnoController extends Controller
 							}
 						}
 					}
+                    //agregar a newArrayCanchas
 				}
+                //}
 			}
 		}
 		
-		return view('reservaCancha', array ('reservas'=>$reservas), array ('canchas'=>$arrayCanchas));
+		return view('reservaCancha', array ('reservas'=>$reservas), array ('canchas'=>$newArrayCanchas));
     }
 
     /**
