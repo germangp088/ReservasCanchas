@@ -16,44 +16,73 @@ class CanchaTurnoController extends Controller
      */
     public function index(/*$fecha*/)
     {
+        $fechaFiltro = date("2017-11-19");
+        
         //validar si es nulo cargarlo con new date.
-		$reservas = CanchasTurno::all()->where('reservada', 0);
+        $reserasControlador = new ReservaController ();
+        $resrvasPrevias = $reserasControlador->getAll()->where ('fecha', $fechaFiltro);
+        //echo $resrvasPrevias;
+
+        /* Levanta todas las canchas sin reserva - uso unico de informacion */
+		$canchaTurno = CanchasTurno::all();//->where('reservada', 0);
 
 		$turnos = Turno::all();
 		
         $canchas = new CanchaController();
+        /*filtro unicamente para listar canchas abiertas*/
         $arrayCanchas = $canchas->getAll()->where('id_estado_cancha', 1);
-        $newArrayCanchas = array();
-		foreach ($reservas as $reserva) {
-            //foreach ($cancha as $arrayCanchas) {
+        foreach ($canchaTurno as $ct) {
+            foreach ($resrvasPrevias as $rp) {
+                if ( $ct->id_cancha == $rp->id_cancha ){
+                    if ( $ct->id_turno == $rp->id_turno ){
+                        unset ($canchaTurno[$ct->id-1]);
+                        //echo ("'$ct->id') Cancha '$ct->id_cancha' en turno '$ct->id_turno' eliminada -- ");
+                    }
+                }
+            }
+        }
+        
+        /*recorro todas las canchas turno*/
+		foreach ($canchaTurno as $ct) { /*se recorren todas las reseravas*/
+            /*recorro turnos para sacar precio*/
 			foreach ($turnos as $turno) {
-				if(!($reserva->id_turno == $turno->id/*&& $cancha->id == reserva_cancha_id*/))
+				if( ($ct->id_turno == $turno->id))
 				{
-					$reserva->hora = $turno->hora;
+					$ct->hora = $turno->hora;
 					if($turno->noche != 1)
 					{
 						foreach ($arrayCanchas as $cancha) {
-							if($cancha->id == $reserva->id_cancha)
+							if($cancha->id == $ct->id_cancha)
 							{
-								$reserva->precio = $cancha->precio_dia;
+								$ct->precio = $cancha->precio_dia;
 							}
 						}
 					}
 					else{
 						foreach ($arrayCanchas as $cancha) {
-							if($cancha->id == $reserva->id_cancha)
+							if($cancha->id == $ct->id_cancha)
 							{
-								$reserva->precio = $cancha->precio_noche;
+								$ct->precio = $cancha->precio_noche;
 							}
 						}
 					}
-                    //agregar a newArrayCanchas
 				}
-                //}
 			}
 		}
 		
-		return view('reservaCancha', array ('reservas'=>$reservas), array ('canchas'=>$newArrayCanchas));
+		return view('reservaCancha', array ('reservas'=>$canchaTurno), array ('canchas'=>$arrayCanchas));
+        
+        /*
+        pasos
+        levantar todas las reservas ehcas $arrayResrevas
+        levantar todas las canchas $arrayCanchas
+        levantar todos los turnos $arrayTurnos
+        filtrar $arrayReservas por la fecha asignada -default fecha actual
+        preguntar por id_cancha y id_turno en $arrayResrvas
+            dentro del foreach $arrayCanchas
+                dentro del foreach $arrayTurnos
+        los id y turnos que no coincidan agregarlos a $array
+        */
     }
 
     /**
@@ -121,3 +150,5 @@ class CanchaTurnoController extends Controller
         //
     }
 }
+
+?>

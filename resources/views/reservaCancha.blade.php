@@ -21,6 +21,18 @@
 
     <div>
         <div class="titulo" style="margin-bottom: 20px;">
+            <h1 style="color:#fff;">Selección de Fecha</h1>
+            <div class="titleline-icon"></div>
+        </div>
+        <form action="/action_page.php" id="contactForm" id="contactForm">
+        	Fecha:
+        	<input type="date" name="fecha_reserva" max="+1W">
+        	<input type="submit">
+        </form>
+    </div>
+
+    <div class="">
+        <div class="titulo" style="margin-bottom: 20px;">
             <h1 style="color:#fff;">FECHA: 2017/11/16</h1>
             <div class="titleline-icon"></div>
         </div>
@@ -33,7 +45,7 @@
 	    <div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
-				  	<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $cancha->id }}">{{ $cancha->tipoCancha()->first()->descripcion }}</a>
+				  	<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $cancha->id }}">{{ $cancha->tipoCancha()->first()->descripcion ."-". $cancha->id }}</a>
 				</h4>
 			</div>
 

@@ -37,6 +37,18 @@ class ReservaController extends Controller
 		return view('reservaForm');
     }
 
+    public function getAll()
+        {
+            $reservas = Reserva::all();
+            return $reservas;
+        }
+
+    public function getAllByDate($fecha)
+        {
+            $reservas = Reserva::all()->where ('fecha' == $fecha);
+            return $reservas;
+        }
+
     public function senia($id_cancha, $id_turno)
     {
         return view('seniaForm',array('id_cancha' => $id_cancha), array('id_turno' => $id_turno));
@@ -183,5 +195,7 @@ class ReservaController extends Controller
         {
             return redirect()->action('ReservaController@show', array('id' => \Auth::user()->id));
         }
+
+        
     }
 }
