@@ -49,9 +49,16 @@ class ReservaController extends Controller
             return $reservas;
         }
 
-    public function senia($id_cancha, $id_turno)
+    public function senia($id_cancha, $id_turno, $fecha)
     {
-        return view('seniaForm',array('id_cancha' => $id_cancha), array('id_turno' => $id_turno));
+        echo "Senia get";
+        
+        return view('seniaForm', [
+                    'id_cancha'=>$id_cancha,
+                    'id_turno'=>$id_turno,
+                    'fecha' => $fecha,
+                ]);
+
     }
 
     public function verCodigo()
@@ -77,26 +84,33 @@ class ReservaController extends Controller
      */
     public function create(Request $req)
     {		
+        echo "Senia post";
+        
 	   $req->validate([
 			'id_cancha' => 'required|exists:canchas,id',
 			'id_turno' => 'required|exists:turnos,id',
+            'fecha' => 'required|date',
 			'senia' => 'required|numeric|min:0'
 		]);
+        
+       
 		$reserva = new Reserva ();
 		
 		$reserva->id_cancha = $req->id_cancha;
 		$reserva->id_user= \Auth::user()->id;
 		$reserva->id_turno = $req->id_turno;
-		$reserva->fecha = date("Y-m-d");
+		$reserva->fecha = $req->fecha;//date("Y-m-d,");
 		$reserva->senia = $req->senia;
 		$reserva->codigo_reserva = rand ( 1000, 8000 );
 		
         $reserva->save();
-
+        
+        /*
         CanchasTurno::where(['id_cancha' => $reserva->id_cancha, 'id_turno' => $reserva->id_turno])->update(['reservada' => 1]);
-
+        */
         /* REDIRECCION A CODIGO DE RESERVA */
         return view('reservaCodigo',['codigo' => $reserva->codigo_reserva]);
+     
     }
 
     /**

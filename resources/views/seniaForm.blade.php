@@ -27,6 +27,7 @@
                                     <input type="text" class="form-control" placeholder="Seña *" id="senia" name="senia" required autofocus>
                                     <input type="hidden" id="id_cancha" name="id_cancha" value="{{ $id_cancha }}">
                                     <input type="hidden" id="id_turno" name="id_turno" value="{{ $id_turno }}">
+                                    <input type="hidden" id="fecha" name="fecha" value="{{ $fecha }}">
                                     <p class="help-block text-danger"></p>
                                 </div>
 

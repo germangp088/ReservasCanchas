@@ -17,6 +17,7 @@ class CreateCanchasTable extends Migration
 			$table->engine = 'InnoDB';
 			
             $table->increments('id');
+            $table->string('nombre');
             $table->integer('id_tipo_cancha')->unsigned();
 			$table->foreign('id_tipo_cancha')->references('id')->on('tipo_canchas');
             $table->integer('id_estado_cancha')->unsigned();

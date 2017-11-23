@@ -10,54 +10,60 @@
 
 
 <section id="contact" style="">
-<div class="container">
-    <div>
-        <div class="about_our_company" style="margin-bottom: 20px;">
-            <h1 style="color:#fff;">NUEVA CANCHA</h1>
-            <div class="titleline-icon"></div>
-            <p style="color:#fff;">Agregando cancha al sitio web</p>
+    <div class="container">
+        <div>
+            <div class="about_our_company" style="margin-bottom: 20px;">
+                <h1 style="color:#fff;">NUEVA CANCHA</h1>
+                <div class="titleline-icon"></div>
+                <p style="color:#fff;">Agregando cancha al sitio web</p>
+            </div>
         </div>
-    </div>
-    <div>
-                    <form name="sentMessage" id="contactForm"  method="POST" action="/canchas">
-                        {{ csrf_field() }}
+        <div>
+                <form name="sentMessage" id="contactForm"  method="POST" action="/canchas">
+                    {{ csrf_field() }}
+                    <div>
                         <div>
-                            <div>
-                                <div class="form-group">
-                                    <p class="login_text_size" style="color:#fff;">Tipo de Cancha: </p>
-									<select name="id_tipo_cancha" id="id_tipo_cancha">
-									@foreach($tiposCancha as $tipoCancha)										
-										<option value="{{ $tipoCancha->id }}"> {{ $tipoCancha->descripcion }}</option>
-									@endforeach
-									</select>
-									
-                                    <p class="help-block text-danger"></p>
-                                </div>
-
-                                <input type="hidden" class="form-control" name="id_estado_cancha" id="id_estado_cancha" value="1"/>
-                                <input type="hidden" name="latitud" id="latitud" value="1"/>
-                                <input type="hidden" name="longitud" id="longitud" value="10"/>
-
-                                <div class="form-group">
-                                    <p class="login_text_size" style="color:#fff;">Precio de Dia: </p>
-                                    <input type="text" class="form-control" name="precio_dia" id="precio_dia" value="800"/>
-                                    <p class="help-block text-danger"></p>
-                                </div>
-
-                                <div class="form-group">
-                                    <p class="login_text_size" style="color:#fff;">Precio de Noche: </p>
-                                    <input type="text" class="form-control" name="precio_noche" id="precio_noche" value="1000"/>
-                                    <p class="help-block text-danger"></p>
-                                </div>
-
-                            <div class="clearfix"></div>
-                            <div class="col-lg-12 text-center">
-                                <div id="success"></div>
-                                <button type="submit" class="btn btn-xl get" style="font-size: 20px;">Crear Cancha</button>
+                            <div class="form-group">
+                                <p class="login_text_size" style="color:#fff;">Tipo de Cancha: </p>
+								<select name="id_tipo_cancha" id="id_tipo_cancha">
+								@foreach($tiposCancha as $tipoCancha)										
+									<option value="{{ $tipoCancha->id }}"> {{ $tipoCancha->descripcion }}</option>
+								@endforeach
+								</select>
+								
+                                <p class="help-block text-danger"></p>
                             </div>
 
+                            <input type="hidden" class="form-control" name="id_estado_cancha" id="id_estado_cancha" value="1"/>
+                            <input type="hidden" name="latitud" id="latitud" value="1"/>
+                            <input type="hidden" name="longitud" id="longitud" value="10"/>
+
+                            <div class="form-group">
+                                <p class="login_text_size" style="color:#fff;">Nombre de cancha: </p>
+                                <input type="text" class="form-control" name="nombre" id="nombre" value="Default"/>
+                                <p class="help-block text-danger"></p>
+                            </div>
+
+                            <div class="form-group">
+                                <p class="login_text_size" style="color:#fff;">Precio de Dia: </p>
+                                <input type="text" class="form-control" name="precio_dia" id="precio_dia" value="800"/>
+                                <p class="help-block text-danger"></p>
+                            </div>
+
+                            <div class="form-group">
+                                <p class="login_text_size" style="color:#fff;">Precio de Noche: </p>
+                                <input type="text" class="form-control" name="precio_noche" id="precio_noche" value="1000"/>
+                                <p class="help-block text-danger"></p>
+                            </div>
+
+                        <div class="clearfix"></div>
+                        <div class="col-lg-12 text-center">
+                            <div id="success"></div>
+                            <button type="submit" class="btn btn-xl get" style="font-size: 20px;">Crear Cancha</button>
                         </div>
-                    </form>
+
+                    </div>
+                </form>
                 
             </div>
         </div>

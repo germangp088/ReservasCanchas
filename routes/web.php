@@ -30,7 +30,7 @@ Route::get('/reserva/show', 'ReservaController@show');
 Route::get('/reserva/form', 'ReservaController@form');
 Route::get('/reserva/destroy/{id}', 'ReservaController@destroy');
 
-Route::get('/senia/form/{id_cancha}/{id_turno}', 'ReservaController@senia');
+Route::get('/senia/form/{id_cancha}/{id_turno}/{fecha}', 'ReservaController@senia');
 Route::post('/senia/form', 'ReservaController@create');
 
 Route::post('/reserva', 'ReservaController@create');
@@ -39,3 +39,4 @@ Route::get('/reservaCodigo', 'ReservaController@verCodigo');
 Route::get('/contacto', 'contactoController@index');
 
 Route::get('/canchaTurno/index', 'CanchaTurnoController@index');
+Route::post('/canchaTurno/FiltroFecha', 'CanchaTurnoController@indexFecha');

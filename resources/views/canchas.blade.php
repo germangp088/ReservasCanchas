@@ -25,7 +25,8 @@
         <table class="table">
             <thead>
               <tr">
-                <th style="color:#fff;">Cancha</th>
+                <th style="color:#fff;">Nombre</th>
+                <th style="color:#fff;">Tipo Cancha</th>
                 <th style="color:#fff;">Precio Día</th>
                 <th style="color:#fff;">Precio Noche</th>
                 <th style="color:#fff;">Estado</th>
@@ -39,6 +40,7 @@
                     @else
                     <tr class="success">
                     @endif
+                        <td>{{ $cancha->nombre }}</td>
                         <td>{{ $cancha->tipoCancha()->first()->descripcion }}</td>
                         <td>{{ $cancha->precio_dia }}</td>
                         <td>{{ $cancha->precio_noche }}</td>

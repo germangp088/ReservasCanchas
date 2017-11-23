@@ -67,6 +67,7 @@ class CanchaController extends Controller
         }
 
 	   $req->validate([
+            'nombre' => 'required|string',
 			'id_tipo_cancha' => 'required|exists:tipo_canchas,id',
 			'id_estado_cancha' => 'required|exists:estado_canchas,id',
 			'latitud' => 'required|numeric',
@@ -76,6 +77,7 @@ class CanchaController extends Controller
 		]);
 		$canchaNew = new Cancha ();
 		
+        $canchaNew->nombre = $req->nombre;
 		$canchaNew->id_tipo_cancha = $req->id_tipo_cancha;
 		$canchaNew->id_estado_cancha = $req->id_estado_cancha;
 		$canchaNew->latitud = $req->latitud;
@@ -142,6 +144,7 @@ class CanchaController extends Controller
     {
         $req->validate([
 			'id' => 'required|exists:canchas,id',
+            'nombre' => 'required|string',
 			'id_tipo_cancha' => 'required|exists:tipo_canchas,id',
 			'id_estado_cancha' => 'required|exists:estado_canchas,id',
 			'latitud' => 'required|numeric',
@@ -151,6 +154,7 @@ class CanchaController extends Controller
 		]);
 		$canchaNew = new Cancha ();
 		
+        $canchaNew->nombre = $req->nombre;
 		$canchaNew->id_tipo_cancha = $req->id_tipo_cancha;
 		$canchaNew->id_estado_cancha = $req->id_estado_cancha;
 		$canchaNew->latitud = $req->latitud;

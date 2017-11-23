@@ -24,16 +24,18 @@
             <h1 style="color:#fff;">Selección de Fecha</h1>
             <div class="titleline-icon"></div>
         </div>
-        <form action="/action_page.php" id="contactForm" id="contactForm">
+
+        <form method="POST" action="/canchaTurno/FiltroFecha" id="contactForm">
+        {{ csrf_field() }}
         	Fecha:
-        	<input type="date" name="fecha_reserva" max="+1W">
-        	<input type="submit">
+        	<input type="date" name="fecha_reserva" min="{{ $fechaMin }}" max="{{ $fechaMax }}" value="{{ $fechaFiltro }}">
+        	<input type="submit" value="Filtrar">
         </form>
     </div>
 
     <div class="">
         <div class="titulo" style="margin-bottom: 20px;">
-            <h1 style="color:#fff;">FECHA: 2017/11/16</h1>
+            <h1 style="color:#fff;">FECHA: {{ $fechaFiltro }}</h1>
             <div class="titleline-icon"></div>
         </div>
     </div>
@@ -45,7 +47,7 @@
 	    <div class="panel panel-default">
 			<div class="panel-heading">
 				<h4 class="panel-title">
-				  	<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $cancha->id }}">{{ $cancha->tipoCancha()->first()->descripcion ."-". $cancha->id }}</a>
+				  	<a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ $cancha->id }}">{{ $cancha->nombre ." - ". $cancha->tipoCancha()->first()->descripcion }}</a>
 				</h4>
 			</div>
 
@@ -56,7 +58,7 @@
 			            <thead>
 			              <tr>
 			                <th style="color:black;">Turno</th>
-			                <th style="color:black;">Precio</th>
+			                <th sHtyle="color:black;">Precio</th>
 			                <th style="color:black;">HACER RESERVA</th>
 			              </tr>
 			            </thead>
@@ -66,7 +68,7 @@
 			                    <tr class="success">
 			                        <td>{{ $reserva->hora }}</td>
 			                        <td>{{ $reserva->precio }}</td>
-			                        <td> <a href="/senia/form/{{ $cancha->id }}/{{ $reserva->id }}">RESERVAR</a> </td>
+			                        <td> <a href="/senia/form/{{ $cancha->id }}/{{ $reserva->id }}/{{ $fechaFiltro }}">RESERVAR</a> </td>
 			                    </tr>
 			                    @endif
 					        @endforeach

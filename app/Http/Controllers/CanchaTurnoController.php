@@ -16,8 +16,10 @@ class CanchaTurnoController extends Controller
      */
     public function index(/*$fecha*/)
     {
-        $fechaFiltro = date("2017-11-19");
-        
+        $fechaFiltro = date("Y-m-j");
+        $fechaMin = date("Y-m-j",strtotime("$fechaFiltro -0 day") );
+        $fechaMax = date("Y-m-j",strtotime("$fechaFiltro +7 day") );
+
         //validar si es nulo cargarlo con new date.
         $reserasControlador = new ReservaController ();
         $resrvasPrevias = $reserasControlador->getAll()->where ('fecha', $fechaFiltro);
@@ -36,7 +38,6 @@ class CanchaTurnoController extends Controller
                 if ( $ct->id_cancha == $rp->id_cancha ){
                     if ( $ct->id_turno == $rp->id_turno ){
                         unset ($canchaTurno[$ct->id-1]);
-                        //echo ("'$ct->id') Cancha '$ct->id_cancha' en turno '$ct->id_turno' eliminada -- ");
                     }
                 }
             }
@@ -70,19 +71,83 @@ class CanchaTurnoController extends Controller
 			}
 		}
 		
-		return view('reservaCancha', array ('reservas'=>$canchaTurno), array ('canchas'=>$arrayCanchas));
+		return view('reservaCancha', [
+                    'reservas'=>$canchaTurno,
+                    'canchas'=>$arrayCanchas,
+                    'fechaFiltro' => $fechaFiltro,
+                    'fechaMax' => $fechaMax,
+                    'fechaMin' => $fechaMin
+                ]);
+    }
+
+    public function indexFecha(Request $request)
+    {   
+        $fechaFiltro = $request->fecha_reserva;
+        $hoy = date("Y-m-j");
+        $fechaMin = date("Y-m-j",strtotime("$hoy -0 day") );
+        $fechaMax = date ("Y-m-d",strtotime("$hoy +7 day") );
+
+
+        //validar si es nulo cargarlo con new date.
+        $reserasControlador = new ReservaController ();
+        $resrvasPrevias = $reserasControlador->getAll()->where ('fecha', $fechaFiltro);
+        //echo $resrvasPrevias;
+
+        /* Levanta todas las canchas sin reserva - uso unico de informacion */
+        $canchaTurno = CanchasTurno::all();//->where('reservada', 0);
+
+        $turnos = Turno::all();
         
-        /*
-        pasos
-        levantar todas las reservas ehcas $arrayResrevas
-        levantar todas las canchas $arrayCanchas
-        levantar todos los turnos $arrayTurnos
-        filtrar $arrayReservas por la fecha asignada -default fecha actual
-        preguntar por id_cancha y id_turno en $arrayResrvas
-            dentro del foreach $arrayCanchas
-                dentro del foreach $arrayTurnos
-        los id y turnos que no coincidan agregarlos a $array
-        */
+        $canchas = new CanchaController();
+        /*filtro unicamente para listar canchas abiertas*/
+        $arrayCanchas = $canchas->getAll()->where('id_estado_cancha', 1);
+        foreach ($canchaTurno as $ct) {
+            foreach ($resrvasPrevias as $rp) {
+                if ( $ct->id_cancha == $rp->id_cancha ){
+                    if ( $ct->id_turno == $rp->id_turno ){
+                        unset ($canchaTurno[$ct->id-1]);
+                        //echo ("'$ct->id') Cancha '$ct->id_cancha' en turno '$ct->id_turno' eliminada -- ");
+                    }
+                }
+            }
+        }
+        
+        /*recorro todas las canchas turno*/
+        foreach ($canchaTurno as $ct) { /*se recorren todas las reseravas*/
+            /*recorro turnos para sacar precio*/
+            foreach ($turnos as $turno) {
+                if( ($ct->id_turno == $turno->id))
+                {
+                    $ct->hora = $turno->hora;
+                    if($turno->noche != 1)
+                    {
+                        foreach ($arrayCanchas as $cancha) {
+                            if($cancha->id == $ct->id_cancha)
+                            {
+                                $ct->precio = $cancha->precio_dia;
+                            }
+                        }
+                    }
+                    else{
+                        foreach ($arrayCanchas as $cancha) {
+                            if($cancha->id == $ct->id_cancha)
+                            {
+                                $ct->precio = $cancha->precio_noche;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return view('reservaCancha', [
+                    'reservas'=>$canchaTurno,
+                    'canchas'=>$arrayCanchas,
+                    'fechaFiltro' => $fechaFiltro,
+                    'fechaMax' => $fechaMax,
+                    'fechaMin' => $fechaMin
+                ]);
+        
     }
 
     /**
