@@ -26,23 +26,23 @@
             <thead>
               <tr">
                 <th style="color:#fff;">Cancha</th>
+                <th style="color:#fff;">Tipo Cancha</th>
                 <th style="color:#fff;">Usuario</th>
                 <th style="color:#fff;">Turno</th>
                 <th style="color:#fff;">Fecha</th>
                 <th style="color:#fff;">Código Resreva</th>
-                <th style="color:#fff;">Estado Cancha</th>
                 <th style="color:#fff;">LIBERAR RESERVA</th>
               </tr>
             </thead>
             <tbody>
                 @foreach($reservas as $reserva)
                     <tr class="success">
+                        <td>{{ $reserva->cancha()->first()->nombre }}</td>
                         <td>{{ $reserva->cancha()->first()->tipoCancha()->first()->descripcion }}</td>
                         <td>{{ $reserva->user()->first()->name }}</td>
                         <td>{{ $reserva->turno()->first()->hora }}</td>
                         <td>{{ $reserva->fecha }}</td>
                         <td>{{ $reserva->codigo_reserva }}</td>
-                        <td>{{ $reserva->cancha()->first()->estado()->first()->descripcion }}</td>
 
                         <td> <a href="/reserva/destroy/{{ $reserva->id }}">ELIMINAR</a> </td>
                     </tr>
