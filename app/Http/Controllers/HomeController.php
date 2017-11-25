@@ -24,15 +24,11 @@ class HomeController extends Controller
      */
     public function index()
     {    
-    
-        if ( Cache::has('myValue') ){
-            echo "Mi valor->".Cache::get('myValue');
-            //Cache::forget ('myValue');
+        if ( Cache::has('nodeReserva') ){
             return redirect()->action('CanchaTurnoController@index');
-            
         }
-        else{
-            echo "no existe la key en la cache";
+        else
+        {
             return view('index');//home
         }
     

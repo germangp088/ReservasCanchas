@@ -135,9 +135,7 @@ class ReservaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show()
-    {        
-        Cache::forget ('myValue');
-
+    {  
         $id = \Auth::user()->id;
         $reservas = Reserva::with(['cancha', 'user', 'turno'])->where('id_user', $id)->get();
         return view('reservaUser',['reservas' => $reservas]);

@@ -17,12 +17,6 @@ class CanchaTurnoController extends Controller
      */
     public function index(/*$fecha*/)
     {
-        /*alamaceno data en la cache*/
-        if ( Cache::add('myValue', '200', 2000) )
-            echo "Agregando valor a la cache";
-        else
-            echo "Ya existe la key en la cache";
-
         $fechaFiltro = date("Y-m-j");
         $fechaMin = date("Y-m-j",strtotime("$fechaFiltro -0 day") );
         $fechaMax = date("Y-m-j",strtotime("$fechaFiltro +7 day") );
