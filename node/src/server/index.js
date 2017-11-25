@@ -4,6 +4,7 @@ const bodyParser= require('body-parser');
 const Canchas = require("./Canchas.js");
 const q = require('q');
 const path = require("path")
+const constants = require('./constants/constants');
 
 const baseFolder = path.resolve(__dirname, '../client/');
 
@@ -13,7 +14,7 @@ app.use("/",express.static(baseFolder));
 
 app.get('/canchasSimultaneos', function(req, res){
 	var promesas = [];
-	promesas.push(Canchas.getCanchas());
+	promesas.push(constants.serverUri.map(Canchas.getCanchas));
 	
 	q.all(promesas).then(
 		function(canchas){
