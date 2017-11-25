@@ -24,23 +24,37 @@ class HomeController extends Controller
      */
     public function index()
     {    
-    /*    
-    if ( Cache::add('myValue',0,2000) ){
-        echo "no existe la key en la cache";
-        //Cache::forget ('myValue');
-        return view('index');//home
-    }
-    else{
-        echo "Mi valor->".Cache::get('myValue');
-        //Cache::forget ('myValue');
-        return redirect()->action('ReservaController@index');
-    }
-    */
-        return view('index');/*home*/
+    
+        if ( Cache::has('myValue') ){
+            echo "Mi valor->".Cache::get('myValue');
+            //Cache::forget ('myValue');
+            return redirect()->action('CanchaTurnoController@index');
+            
+        }
+        else{
+            echo "no existe la key en la cache";
+            return view('index');//home
+        }
+    
+/*
+        if ( Cache::has('myValue') ){
+            echo "Mi valor->".Cache::get('myValue');
+            return view('index', ['cache'=>1 ]);
+        } else {
+            return view('index')
+        }
+ */
+
+        
     }
 
     public function contacto()
     {
         return view('contacto');/*home*/
+    }
+
+    public function reservas ()
+    {
+        return redirect()->action('ReservaController@index');
     }
 }

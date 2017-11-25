@@ -136,10 +136,7 @@ class ReservaController extends Controller
      */
     public function show()
     {        
-        if ( Cache::add('myValue', '5000', 2000) )
-            echo "Agregando valor a la cache";
-        else
-            echo "Ya existe la key en la cache";
+        Cache::forget ('myValue');
 
         $id = \Auth::user()->id;
         $reservas = Reserva::with(['cancha', 'user', 'turno'])->where('id_user', $id)->get();
