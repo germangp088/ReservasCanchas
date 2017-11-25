@@ -245,6 +245,7 @@ class ReservaController extends Controller
       }else{
          $fecha_fin = $request->fechaHasta;
       }
+      $link = url("http://localhost:8000/Login/TriCancha?id=");
       if (isset($request->tipoCancha)){
                 $tipo = $request->tipoCancha;
                 $reservas = DB::table('reservas')
@@ -266,13 +267,10 @@ class ReservaController extends Controller
                       ->orderBy('reservas.id')
                       ->get();
       }else{
-                echo $hora_ini;
-                echo $hora_fin;
-                echo $fecha_ini;
-                echo $fecha_fin;
                 $reservas = DB::table('reservas')
                       ->join('canchas', 'cancha_id', '=', 'canchas.id')
-                      ->select( 'canchas.nombre as Nombre', 
+                      ->select( 'canchas.nombre as Web', 
+                                'canchas.nombre as Nombre', 
                                 'canchas.tamanio as Tamanio', 
                                 'canchas.latitud as Latitud', 
                                 'canchas.longitud as Longitud',
@@ -280,13 +278,18 @@ class ReservaController extends Controller
                                 'canchas.precio_noche as Precio_Noche',
                                 'reservas.fecha as Fecha',
                                 'reservas.horario as Horario',
-                                'reservas.id as Link'      
+                                'reservas.id as Link'        
                         )
                       ->whereBetween('reservas.horario', [$hora_ini, $hora_fin])
                       ->whereBetween('reservas.fecha', [$fecha_ini, $fecha_fin])
                       ->where('reservas.estado','Disponible')
                       ->get();
       }
-    return $reservas;
+       foreach ($reservas as $name => $reserva) {
+            $reserva ->Web = 'Futbol Da Vinci';
+            $reserva ->Link = stripslashes($link.$reserva->Link);
+            $pepe = $reserva ->Link;
+         }
+      return $reservas; 
     }
 }

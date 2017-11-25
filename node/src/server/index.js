@@ -4,8 +4,7 @@ const bodyParser= require('body-parser');
 const Canchas = require("./Canchas.js");
 const q = require('q');
 const path = require("path")
-const constants = require('./constants/constants');
-
+const config = require('config');
 const baseFolder = path.resolve(__dirname, '../client/');
 
 app.use(bodyParser.urlencoded());
@@ -13,6 +12,7 @@ app.use(bodyParser.json());
 app.use("/",express.static(baseFolder));
 
 app.get('/canchasSimultaneos', function(req, res){
+	console.log(config.get('Canchas.serverUri'));
 	var promesas = [];
 	promesas.push(constants.serverUri.map(Canchas.getCanchas));
 	
@@ -29,6 +29,6 @@ app.get('/canchasSimultaneos', function(req, res){
 		});
 });
 
-app.listen(3001, function(){
+app.listen(config.get('Canchas.host.port'), function(){
 	
 });
