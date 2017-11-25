@@ -9,7 +9,7 @@ export class hora extends React.Component {
     render() {
         let options = [];
         for (let index = 1; index < 13; index++) {
-            options.push(<option value={index}>{(index + 11).toString()}</option>);
+            options.push(<option key={this.props.name + "_" + index} value={index}>{(index + 11).toString()}</option>);
         }
         return (  
                 <div className="row">

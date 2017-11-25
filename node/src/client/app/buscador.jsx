@@ -92,22 +92,26 @@ class Buscador extends React.Component {
 								</div>
 							</div>
 							<DatePicker 
-								title="Fecha Desde:" 
+								title="Fecha Desde:"
+								key="fecha_reserva_desde"
 								name="fecha_reserva_desde"
 								value={this.state.fechaDesde}
 								onChange={this.changeFechaDesde}/>
 							<DatePicker 
 								title="Fecha Hasta:" 
+								key="fecha_reserva_hasta"
 								name="fecha_reserva_hasta"
 								value={this.state.fechaHasta}
 								onChange={this.changeFechaHasta}/>
 							<Hora 
 								title="Hora Desde:" 
+								key="hora_reserva_desde"
 								name="hora_reserva_desde"
 								value={this.state.horaDesde}
 								onChange={this.changeHoraDesde}/>
 							<Hora 
 								title="Hora Hasta:" 
+								key="hora_reserva_hasta"
 								name="hora_reserva_hasta"
 								value={this.state.horaHasta}
 								onChange={this.changeHoraHasta}/>

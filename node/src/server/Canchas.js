@@ -1,25 +1,17 @@
 var q = require('q');
+var fetch = require('node-fetch');
 
 var Canchas = {
-	getCanchas: function () {
+	getCanchas: function (server) {
 		var deferred = q.defer();
-		setTimeout(function () {
-			var canchas = [];
-			canchas.push({
-				id: 1,
-				tipo: 5,
-				descripcion: "Cancha 5",
-				precio: "$250",
-				link: "www.google.com"
-			}, {
-				id: 2,
-				tipo: 11,
-				descripcion: "Cancha 11",
-				precio: "$500",
-				link: "www.yahoo.com"
+		fetch(server)
+			.then(function(res) {
+				return res.json();
+			}).then(function(json) {
+				deferred.resolve(json);
+			}).catch(function(err) {
+				console.log(err);
 			});
-			deferred.resolve(canchas);
-		}, 2000);
 		return deferred.promise;
 	}
 }
