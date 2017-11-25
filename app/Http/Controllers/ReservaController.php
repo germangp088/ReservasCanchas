@@ -8,6 +8,7 @@ use App\Http\Controllers\CanchaController;
 use App\Http\Controllers\TurnosController;
 use App\Reserva;
 use App\CanchasTurno;
+use Cache;
 
 class ReservaController extends Controller
 {
@@ -73,10 +74,18 @@ class ReservaController extends Controller
         
         $arrayCanchas = $canchas->getAll()->where('id_estado_cancha', 1)->get();
         $arrayTurnos = $turnos->getAll();
+        $canchasTurno = CanchasTurno::all();
 
-        return view('reservaCancha', array ('canchas'=>$arrayCanchas), array('turnos' => $arrayTurnos));
+        return view('reservaCancha', array ('canchas'=>$arrayCanchas), array('turnos' => $arrayTurnos),array ('canchasTurno'=>$canchasTurno));
+        /*
+        return view('reservaCancha', [
+                    'canchas'=>$arrayCanchas,
+                    'turnos'=>$arrayTurnos,
+                    'CanchasTurnos' => $canchasTurno,
+                ]);
+
+        */
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -86,14 +95,15 @@ class ReservaController extends Controller
     {		
         echo "Senia post";
         
-	   $req->validate([
-			'id_cancha' => 'required|exists:canchas,id',
-			'id_turno' => 'required|exists:turnos,id',
+        $req->validate([
+            'id_cancha' => 'required|exists:canchas,id',
+            'id_turno' => 'required|exists:turnos,id',
             'fecha' => 'required|date',
-			'senia' => 'required|numeric|min:0'
-		]);
+            'senia' => 'required|numeric|min:0'
+        ]);
         
-       
+        echo "Id_turno->".$req->id_turno;   
+
 		$reserva = new Reserva ();
 		
 		$reserva->id_cancha = $req->id_cancha;
@@ -104,13 +114,11 @@ class ReservaController extends Controller
 		$reserva->codigo_reserva = rand ( 1000, 8000 );
 		
         $reserva->save();
-        
         /*
         CanchasTurno::where(['id_cancha' => $reserva->id_cancha, 'id_turno' => $reserva->id_turno])->update(['reservada' => 1]);
         */
         /* REDIRECCION A CODIGO DE RESERVA */
         return view('reservaCodigo',['codigo' => $reserva->codigo_reserva]);
-     
     }
 
     /**
@@ -131,7 +139,12 @@ class ReservaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show()
-    {
+    {        
+        if ( Cache::add('myValue', '5000', 2000) )
+            echo "Agregando valor a la cache";
+        else
+            echo "Ya existe la key en la cache";
+
         $id = \Auth::user()->id;
         $reservas = Reserva::with(['cancha', 'user', 'turno'])->where('id_user', $id)->get();
         return view('reservaUser',['reservas' => $reservas]);
