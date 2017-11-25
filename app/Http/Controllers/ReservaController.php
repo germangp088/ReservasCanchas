@@ -135,12 +135,7 @@ class ReservaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show()
-    {        
-        if ( Cache::add('myValue', '5000', 2000) )
-            echo "Agregando valor a la cache";
-        else
-            echo "Ya existe la key en la cache";
-
+    {  
         $id = \Auth::user()->id;
         $reservas = Reserva::with(['cancha', 'user', 'turno'])->where('id_user', $id)->get();
         return view('reservaUser',['reservas' => $reservas]);
