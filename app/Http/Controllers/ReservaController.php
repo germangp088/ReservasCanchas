@@ -50,9 +50,7 @@ class ReservaController extends Controller
         }
 
     public function senia($id_cancha, $id_turno, $fecha)
-    {
-        echo "Senia get";
-        
+    {        
         return view('seniaForm', [
                     'id_cancha'=>$id_cancha,
                     'id_turno'=>$id_turno,
@@ -83,9 +81,7 @@ class ReservaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(Request $req)
-    {		
-        echo "Senia post";
-        
+    {		        
 	   $req->validate([
 			'id_cancha' => 'required|exists:canchas,id',
 			'id_turno' => 'required|exists:turnos,id',
@@ -211,5 +207,73 @@ class ReservaController extends Controller
         }
 
         
+    }
+
+    public function getReservasNode(Request $request)
+    {
+      if(!isset($request->horaDesde)){
+         $hora_ini = '0';
+      }else{
+         $hora_ini = $request->horaDesde;
+      }
+      if(!isset($request->horaHasta)){
+          $hora_fin = intval('23');
+      }else{
+          $hora_fin = intval($request->horaHasta) ;
+      }
+      if(!isset($request->fechaDesde)){
+        $fecha_ini = date('Y-m-d');
+      }else{
+        $fecha_ini = $request->fechaDesde;
+      }
+      if(!isset($request->fechaHasta)){
+         $fecha = Reserva::where('reservas.estado','Disponible')->first()->max('fecha');
+         $fecha_fin = $fecha;
+      }else{
+         $fecha_fin = $request->fechaHasta;
+      }
+      if (isset($request->tipoCancha)){
+                $tipo = $request->tipoCancha;
+                $reservas = DB::table('reservas')
+                      ->join('canchas', 'cancha_id', '=', 'canchas.id')
+                      ->select( 'canchas.nombre as Nombre', 
+                                'canchas.tamanio as Tamanio', 
+                                'canchas.latitud as Latitud', 
+                                'canchas.longitud as Longitud',
+                                'canchas.precio_dia as Precio_Dia', 
+                                'canchas.precio_noche as Precio_Noche',
+                                'reservas.fecha as Fecha',
+                                'reservas.horario as Horario',
+                                'reservas.id as Link'                              
+                        )
+                      ->whereBetween('reservas.horario', [$hora_ini, $hora_fin])
+                      ->whereBetween('reservas.fecha', [$fecha_ini, $fecha_fin])
+                      ->where('reservas.estado','Disponible')
+                      ->where('canchas.tamanio', 'cancha_'.$tipo)
+                      ->orderBy('reservas.id')
+                      ->get();
+      }else{
+                echo $hora_ini;
+                echo $hora_fin;
+                echo $fecha_ini;
+                echo $fecha_fin;
+                $reservas = DB::table('reservas')
+                      ->join('canchas', 'cancha_id', '=', 'canchas.id')
+                      ->select( 'canchas.nombre as Nombre', 
+                                'canchas.tamanio as Tamanio', 
+                                'canchas.latitud as Latitud', 
+                                'canchas.longitud as Longitud',
+                                'canchas.precio_dia as Precio_Dia', 
+                                'canchas.precio_noche as Precio_Noche',
+                                'reservas.fecha as Fecha',
+                                'reservas.horario as Horario',
+                                'reservas.id as Link'      
+                        )
+                      ->whereBetween('reservas.horario', [$hora_ini, $hora_fin])
+                      ->whereBetween('reservas.fecha', [$fecha_ini, $fecha_fin])
+                      ->where('reservas.estado','Disponible')
+                      ->get();
+      }
+    return $reservas;
     }
 }

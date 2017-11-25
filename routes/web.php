@@ -36,6 +36,8 @@ Route::post('/senia/form', 'ReservaController@create');
 Route::post('/reserva', 'ReservaController@create');
 Route::get('/reservaCodigo', 'ReservaController@verCodigo');
 
+Route::get('/getReservasNode', 'ReservaController@getReservasNode');
+
 Route::get('/contacto', 'contactoController@index');
 
 Route::get('/canchaTurno/index', 'CanchaTurnoController@index');
