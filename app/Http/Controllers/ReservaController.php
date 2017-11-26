@@ -219,69 +219,98 @@ class ReservaController extends Controller
 
     public function getReservasNode(Request $request)
     {
-      if(!isset($request->horaDesde)){
-         $hora_ini = '0';
-      }else{
-         $hora_ini = $request->horaDesde;
-      }
-      if(!isset($request->horaHasta)){
-          $hora_fin = intval('23');
-      }else{
-          $hora_fin = intval($request->horaHasta) ;
-      }
-      if(!isset($request->fechaDesde)){
-        $fecha_ini = date('Y-m-d');
-      }else{
-        $fecha_ini = $request->fechaDesde;
-      }
-      if(!isset($request->fechaHasta)){
-         $fecha = Reserva::where('reservas.estado','Disponible')->first()->max('fecha');
-         $fecha_fin = $fecha;
-      }else{
-         $fecha_fin = $request->fechaHasta;
-      }
-      if (isset($request->tipoCancha)){
-                $tipo = $request->tipoCancha;
-                $reservas = DB::table('reservas')
-                      ->join('canchas', 'cancha_id', '=', 'canchas.id')
-                      ->select( 'canchas.nombre as Nombre', 
-                                'canchas.tamanio as Tamanio', 
-                                'canchas.latitud as Latitud', 
-                                'canchas.longitud as Longitud',
-                                'canchas.precio_dia as Precio_Dia', 
-                                'canchas.precio_noche as Precio_Noche',
-                                'reservas.fecha as Fecha',
-                                'reservas.horario as Horario',
-                                'reservas.id as Link'                              
-                        )
-                      ->whereBetween('reservas.horario', [$hora_ini, $hora_fin])
-                      ->whereBetween('reservas.fecha', [$fecha_ini, $fecha_fin])
-                      ->where('reservas.estado','Disponible')
-                      ->where('canchas.tamanio', 'cancha_'.$tipo)
-                      ->orderBy('reservas.id')
-                      ->get();
-      }else{
-                echo $hora_ini;
-                echo $hora_fin;
-                echo $fecha_ini;
-                echo $fecha_fin;
-                $reservas = DB::table('reservas')
-                      ->join('canchas', 'cancha_id', '=', 'canchas.id')
-                      ->select( 'canchas.nombre as Nombre', 
-                                'canchas.tamanio as Tamanio', 
-                                'canchas.latitud as Latitud', 
-                                'canchas.longitud as Longitud',
-                                'canchas.precio_dia as Precio_Dia', 
-                                'canchas.precio_noche as Precio_Noche',
-                                'reservas.fecha as Fecha',
-                                'reservas.horario as Horario',
-                                'reservas.id as Link'      
-                        )
-                      ->whereBetween('reservas.horario', [$hora_ini, $hora_fin])
-                      ->whereBetween('reservas.fecha', [$fecha_ini, $fecha_fin])
-                      ->where('reservas.estado','Disponible')
-                      ->get();
-      }
-    return $reservas;
+        /* Verifica la hora inical */
+        if(!isset($request->horaDesde)){
+            $hora_ini = '0';
+        }else{
+            $hora_ini = $request->horaDesde;
+        }
+        /* Verifica la hora final */
+        if(!isset($request->horaHasta)){
+            $hora_fin = intval('23');
+        }else{
+            $hora_fin = intval($request->horaHasta) ;
+        }
+        /* Verifica el día inicial */
+        if(!isset($request->fechaDesde)){
+            $fecha_ini = date('Y-m-d');
+        }else{
+            $fecha_ini = $request->fechaDesde;
+        }
+        /* Verifica el día final */
+        if(!isset($request->fechaHasta)){
+            $fecha = Reserva::where('reservas.estado','Disponible')->first()->max('fecha');
+            $fecha_fin = $fecha;
+        }else{
+            $fecha_fin = $request->fechaHasta;
+        }
+        /* Obtiene datos de la base */
+        $link = url("http://localhost:8000/Login/TriCancha?id=");
+        if (isset($request->tipoCancha))
+        {
+            /*
+            $tipo = $request->tipoCancha;
+            $reservas = DB::table('reservas')
+                ->join('canchas', 'cancha_id', '=', 'canchas.id')
+                ->select( 'canchas.nombre as Nombre', 
+                            'canchas.tamanio as Tamanio', 
+                            'canchas.latitud as Latitud', 
+                            'canchas.longitud as Longitud',
+                            'canchas.precio_dia as Precio_Dia', 
+                            'canchas.precio_noche as Precio_Noche',
+                            'reservas.fecha as Fecha',
+                            'reservas.horario as Horario',
+                            'reservas.id as Link'                              
+                    )
+                ->whereBetween('reservas.horario', [$hora_ini, $hora_fin])
+                ->whereBetween('reservas.fecha', [$fecha_ini, $fecha_fin])
+                ->where('reservas.estado','Disponible')
+                ->where('canchas.tamanio', 'cancha_'.$tipo)
+                ->orderBy('reservas.id')
+                ->get();
+                */
+                $arrayCanchas = $canchas->getAll()->where('id_tipo_cancha', $request->tipoCancha)->get();
+                $arrayTurnos = $turnos->getAll();
+        }
+        else
+        {
+            $reservas = DB::table('reservas')
+                ->join('canchas', 'cancha_id', '=', 'canchas.id')
+                ->select( 'canchas.nombre as Web', 
+                            'canchas.nombre as Nombre', 
+                            'canchas.tamanio as Tamanio', 
+                            'canchas.latitud as Latitud', 
+                            'canchas.longitud as Longitud',
+                            'canchas.precio_dia as Precio_Dia', 
+                            'canchas.precio_noche as Precio_Noche',
+                            'reservas.fecha as Fecha',
+                            'reservas.horario as Horario',
+                            'reservas.id as Link'        
+                    )
+                ->whereBetween('reservas.horario', [$hora_ini, $hora_fin])
+                ->whereBetween('reservas.fecha', [$fecha_ini, $fecha_fin])
+                ->where('reservas.estado','Disponible')
+                ->get();
+        }
+        foreach ($reservas as $name => $reserva) {
+            $reserva ->Web = 'Futbol Da Vinci';
+            $reserva ->Link = stripslashes($link.$reserva->Link);
+            $pepe = $reserva ->Link;
+        }
+      return $reservas; 
     }
+    public function reservasNode(Request $request){
+        $id = $request->id;
+        $reservas = DB::table('reservas')
+                    ->join('canchas', 'cancha_id', '=', 'canchas.id')
+                    ->select('reservas.*','canchas.nombre','canchas.precio_dia', 'canchas.precio_noche','canchas.tamanio')
+                    ->where('reservas.id',$id)
+                    //->orderBy('reservas.fecha','asc',',','reservas.horario','asc')
+                    ->get();
+        return view('ReservaNode', array('reservas' => $reservas));
+    }
+    public function loginNode(){
+        return view('LoginNode');
+    }
+
 }
