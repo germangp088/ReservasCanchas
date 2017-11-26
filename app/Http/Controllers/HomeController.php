@@ -24,23 +24,17 @@ class HomeController extends Controller
      */
     public function index()
     {    
-        if ( Cache::has('id') ){
-            return redirect()->action('CanchaTurnoController@index');
+        if ( Cache::has('id_cancha') ){
+            $id_cancha = Cache::get('id_cancha'); 
+            $id_turno = Cache::get('id_turno');
+            $fecha = Cache::get('fecha');
+            Cache::flush(); 
+            return redirect()->action('ReservaController@senia', $id_cancha, $id_turno, $fecha);
         }
         else
         {
             return view('index');//home
         }
-    
-/*
-        if ( Cache::has('myValue') ){
-            echo "Mi valor->".Cache::get('myValue');
-            return view('index', ['cache'=>1 ]);
-        } else {
-            return view('index')
-        }
- */
-
         
     }
 

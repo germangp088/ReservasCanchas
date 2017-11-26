@@ -56,7 +56,11 @@ class ReservaController extends Controller
         }
 
     public function senia($id_cancha, $id_turno, $fecha)
-    {        
+    {   
+        if(!\Auth::user()){
+            return redirect()->action('HomeController@index');
+        } 
+
         return view('seniaForm', [
                     'id_cancha'=>$id_cancha,
                     'id_turno'=>$id_turno,
@@ -80,14 +84,6 @@ class ReservaController extends Controller
         $canchasTurno = CanchasTurno::all();
 
         return view('reservaCancha', array ('canchas'=>$arrayCanchas), array('turnos' => $arrayTurnos),array ('canchasTurno'=>$canchasTurno));
-        /*
-        return view('reservaCancha', [
-                    'canchas'=>$arrayCanchas,
-                    'turnos'=>$arrayTurnos,
-                    'CanchasTurnos' => $canchasTurno,
-                ]);
-
-        */
     }
     /**
      * Show the form for creating a new resource.
@@ -95,7 +91,7 @@ class ReservaController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create(Request $req)
-    {		        
+    {  
         $req->validate([
             'id_cancha' => 'required|exists:canchas,id',
             'id_turno' => 'required|exists:turnos,id',
@@ -259,7 +255,7 @@ class ReservaController extends Controller
         }
 
         /* Obtiene datos de la base */
-        $link = url("http://localhost:8000/Login/FutbolYa?id=");
+        $link = url("http://localhost:8000/preSeniaNode");
         /*llamar a la funcion*/
         $reservas = $this->demoReservaNode($tipoCancha, $fecha_ini, $fecha_fin, $hora_ini, $hora_fin);
         $arrayReservas = json_decode($reservas);
@@ -270,23 +266,16 @@ class ReservaController extends Controller
         return $reservas; 
     }
 
-    public function reservasNode(){
-        $id = Cache::get('id'); 
-        Cache::forget('id');
-        $reservas = DB::table('reservas')
-                  ->join('canchas', 'cancha_id', '=', 'canchas.id')
-                  ->select('reservas.*','canchas.nombre','canchas.precio_dia', 'canchas.precio_noche','canchas.tamanio')
-                  ->where('reservas.id',$id)
-                  //->orderBy('reservas.fecha','asc',',','reservas.horario','asc')
-                  ->get();
-        Cache::flush(); 
-        return view('ReservaNode', array('reservas' => $reservas));
-    }
-    public function loginNode(Request $request){
-      $id = $request->id;
-      Cache::put('id',$id, 2000);
-      
-      return view('LoginNode');
+    public function preSeniaNode(Request $request){
+        $id_cancha = $request->id_cancha;
+        $id_turno = $request->id_turno;
+        $fecha = $request->fecha;
+
+        Cache::put('id_cancha',$id_cancha, 2000);
+        Cache::put('id_turno',$id_turno, 2000);
+        Cache::put('fecha',$fecha, 2000);
+
+        $this->senia($id_cancha, $id_turno, $fecha);
     }
 
     public function demoReservaNode ($tamanio_cancha, $fecha_ini,$fecha_fin, $hora_ini, $hora_fin){
@@ -344,7 +333,9 @@ class ReservaController extends Controller
                             'Precio_Noche' => $c->precio_noche,
                             'Fecha' => $f->fecha,
                             'Horario' => $t->hora,
-                            'Link' => $c->id );
+                            'Link' => "?id_cancha=".$c->id.
+                                        "&id_turno=".$t->id.
+                                        "&fecha=".$f->fecha);
                         array_push($arrayNode, $elemntoNode);
                     }
                 }
