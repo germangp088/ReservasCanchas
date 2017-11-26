@@ -257,13 +257,13 @@ class ReservaController extends Controller
         /* Obtiene datos de la base */
         $link = url("http://localhost:8000/preSeniaNode");
         /*llamar a la funcion*/
-        $reservas = $this->demoReservaNode($tipoCancha, $fecha_ini, $fecha_fin, $hora_ini, $hora_fin);
+        $reservas = $this->setReservaNode($tipoCancha, $fecha_ini, $fecha_fin, $hora_ini, $hora_fin);
         $arrayReservas = json_decode($reservas);
-        foreach ($arrayReservas as $name => $reserva) {
-            $reserva ->Web = 'Argento Futbol';
-            $reserva ->Link = stripslashes($link.$reserva->Link);
+        foreach ($arrayReservas as $reserva) {
+            $reserva->Web = 'Argento Futbol';
+            $reserva->Link = $link.$reserva->Link;
         }
-        return $reservas; 
+        return $arrayReservas; 
     }
 
     public function preSeniaNode(Request $request){
@@ -278,7 +278,7 @@ class ReservaController extends Controller
         $this->senia($id_cancha, $id_turno, $fecha);
     }
 
-    public function demoReservaNode ($tamanio_cancha, $fecha_ini,$fecha_fin, $hora_ini, $hora_fin){
+    public function setReservaNode($tamanio_cancha, $fecha_ini,$fecha_fin, $hora_ini, $hora_fin){
         /* generar array con rango de fechas */
         $arrayFechas = array();
         $countFechas = $fecha_ini;
@@ -342,7 +342,6 @@ class ReservaController extends Controller
             }
         }
         $arrayNode = json_encode($arrayNode);
-        //echo "<br>".$arrayNode;
         return $arrayNode;
     }
 

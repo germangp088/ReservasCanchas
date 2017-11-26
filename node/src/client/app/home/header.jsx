@@ -9,7 +9,7 @@ export class header extends React.Component {
     render() {
         return (
             <div className="page-header">
-				<img src="../public/img/banner.jpg" style={{heigth: "50%"}} alt="Banner" />
+				<img src="../public/img/banner.jpg" style={{width: "100%"}} alt="Banner" />
 				<h1>Buscar</h1>  
 			</div>
         )
