@@ -11,19 +11,19 @@ app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 app.use("/",express.static(baseFolder));
 
-app.get('/canchasSimultaneos/:tipoCancha/:fechaDesde/:fechaHasta/:horaDesde/:horaHasta', function(req, res){
-	var promesas = [];
-	promesas.push(config.get('Canchas.serverUri').map(Canchas.getCanchas));
-	
-	q.all(promesas).then(
-		function(canchas){
-			var data = {
-				canchas: canchas
+app.get('/canchasSimultaneos', function(req, res){
+	let promises = config.get('Canchas.serverUri').map((server)=>Canchas.getCanchas(server, req._parsedOriginalUrl.search));
+	q.all(promises).then(
+		function(data){
+			let canchas = [];
+			for (var index = 0; index < data.length; index++) {
+				canchas = canchas.concat(data[index]);
 			}
-			res.send(data);
+			res.json(canchas);
 		})
 		.catch(
 			function(error){
+				console.log(error);
 				res.send(error);
 		});
 });

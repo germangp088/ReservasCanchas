@@ -25,17 +25,16 @@ class Buscador extends React.Component {
 
 		buildURL() {
 			let url = '/canchasSimultaneos';
-			url += '/tipoCancha=' + this.state.tipoCancha;
-			url += '/fechaDesde=' + this.state.fechaDesde;
-			url += '/fechaHasta=' + this.state.fechaHasta;
-			url += '/horaDesde=' + this.state.horaDesde;
-			url += '/horaHasta=' + this.state.horaHasta;
+			url += '?tipoCancha=' + this.state.tipoCancha;
+			url += this.state.fechaDesde != '' ? '&fechaDesde=' + this.state.fechaDesde : '';
+			url += this.state.fechaHasta != '' ? '&fechaHasta=' + this.state.fechaHasta : '';
+			url += this.state.horaDesde != '' ? '&horaDesde=' + this.state.horaDesde : '';
+			url += this.state.horaHasta != '' ? '&horaHasta=' + this.state.horaHasta : '';
 
 			return url;
 		}
 
 		find() {
-			
 				let callBack = this.props.callBack;
 				this.setState({loading: true});
 				let me = this;
@@ -47,7 +46,7 @@ class Buscador extends React.Component {
 								response
 										.json()
 										.then(function (json) {
-												callBack(json.canchas[0]);
+												callBack(json);
 												me.setState({loading: false});
 										});
 								}

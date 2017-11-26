@@ -6,11 +6,8 @@ class Buscador extends React.Component {
 		render() {
 				let rows = null;
 				if (this.props.canchas.length > 0) {
-						rows = this
-								.props
-								.canchas
-								.map(function (cancha) {
-										return <Row key={"Cancha" + cancha.id} cancha={cancha}/>
+						rows = this.props.canchas.map(function (cancha, index) {
+										return <Row key={"Cancha_" + index} cancha={cancha}/>
 								});
 				} else {
 						rows = <tr>
