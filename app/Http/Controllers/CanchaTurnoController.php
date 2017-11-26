@@ -17,6 +17,10 @@ class CanchaTurnoController extends Controller
      */
     public function index(/*$fecha*/)
     {
+        if(!\Auth::user()){
+            return redirect()->action('HomeController@index');
+        }
+
         $fechaFiltro = date("Y-m-j");
         $fechaMin = date("Y-m-j",strtotime("$fechaFiltro -0 day") );
         $fechaMax = date("Y-m-j",strtotime("$fechaFiltro +7 day") );
