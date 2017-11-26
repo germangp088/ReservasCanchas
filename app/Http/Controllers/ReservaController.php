@@ -262,8 +262,8 @@ class ReservaController extends Controller
         $link = url("http://localhost:8000/Login/FutbolYa?id=");
         /*llamar a la funcion*/
         $reservas = $this->demoReservaNode($tipoCancha, $fecha_ini, $fecha_fin, $hora_ini, $hora_fin);
-
-        foreach ($reservas as $name => $reserva) {
+        $arrayReservas = json_decode($reservas);
+        foreach ($arrayReservas as $name => $reserva) {
             $reserva ->Web = 'Argento Futbol';
             $reserva ->Link = stripslashes($link.$reserva->Link);
         }
@@ -307,7 +307,7 @@ class ReservaController extends Controller
         /*levanto reserva �nica*/
         foreach ($tipoCanchas as $element) {
             if ($element->tamanio == $tamanio_cancha) {
-                $tipoDeCancha = array('id' => $element->id, 'tamanio'=>$element->tamanio, 'detalle'->$element->descripcion );
+                $tipoDeCancha = array('id' => $element->id, 'tamanio'=>$element->tamanio, 'detalle'=>$element->descripcion );
             }    
         }
         $tipoCanchas = json_encode($tipoDeCancha);
@@ -358,7 +358,7 @@ class ReservaController extends Controller
             }
         }
         $arrayNode = json_encode($arrayNode);
-        echo "<br>".$arrayNode;
+        //echo "<br>".$arrayNode;
         return $arrayNode;
     }
 
