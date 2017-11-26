@@ -11,7 +11,11 @@ class Buscador extends React.Component {
 								});
 				} else {
 						rows = <tr>
-								<td colSpan="3">No hay canchas para mostrar</td>
+								<td colSpan="7">
+									<div class="alert alert-warning">
+										No se encontraron canchas.
+									</div>
+								</td>
 						</tr>
 				}
 

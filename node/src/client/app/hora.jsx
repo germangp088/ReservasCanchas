@@ -8,8 +8,8 @@ export class hora extends React.Component {
 
     render() {
         let options = [];
-        for (let index = 1; index < 13; index++) {
-            options.push(<option key={this.props.name + "_" + index} value={index}>{(index + 11).toString()}</option>);
+        for (let index = 0; index < 24; index++) {
+            options.push(<option key={this.props.name + "_" + index} value={index}>{(index).toString()}</option>);
         }
         return (  
                 <div className="row">

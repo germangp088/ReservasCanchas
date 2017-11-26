@@ -302,20 +302,10 @@ class ReservaController extends Controller
         //echo "<br>".$arrayFechas;
         
         /*levantar tama�o seg�n el tipo de cancha*/
-        $tipoCanchas = DB::table ('tipo_canchas')->get();
-
-        /*levanto reserva �nica*/
-        foreach ($tipoCanchas as $element) {
-            if ($element->tamanio == $tamanio_cancha) {
-                $tipoDeCancha = array('id' => $element->id, 'tamanio'=>$element->tamanio, 'detalle'=>$element->descripcion );
-            }    
-        }
-        $tipoCanchas = json_encode($tipoDeCancha);
-        //echo "<br>".$tipoCanchas;
+        $tipoCanchas = DB::table ('tipo_canchas')->where('tamanio', $tamanio_cancha)->get();
 
         /*levantar todas las canchas que coincidan con el tipo_cancha*/
-        $tipos = json_decode($tipoCanchas);
-        $canchas = DB::table ('canchas')->where('id_tipo_cancha', $tipos->id)->get();
+        $canchas = DB::table ('canchas')->where('id_tipo_cancha', $tipoCanchas->id)->get();
         //echo "<br>".$canchas;
 
         /*levantar todos los turnos dentro del limite de las horas*/
@@ -330,6 +320,7 @@ class ReservaController extends Controller
         $arrayParaFiltro = array();
         $fechas = json_decode($arrayFechas);
         /*formaci�n elemento para array retorno*/
+        $archivoExistente = false;
         foreach ($fechas as $f) {
             foreach ($canchas as $c) {
                 foreach ($turnos as $t) {
@@ -344,7 +335,7 @@ class ReservaController extends Controller
                         $elemntoNode = array(
                             'Web' => "Argento Futbol",
                             'Nombre' => $c->nombre,
-                            'Tamanio' => $tipos->detalle,
+                            'Tamanio' => $tipoCanchas->detalle,
                             'Latitud' => $c->latitud,
                             'Longitud' => $c->longitud,
                             'Precio_Dia' => $c->precio_dia,
