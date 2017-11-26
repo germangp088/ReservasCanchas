@@ -17,7 +17,7 @@
             </div>
             <div>
                     <form name="sentMessage" id="contactForm"  method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}>
+                        {{ csrf_field() }}
                         <div>
 
                             <div>

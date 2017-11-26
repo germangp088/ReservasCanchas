@@ -49,6 +49,7 @@ class Buscador extends React.Component {
 								response.json()
 										.then(function (json) {
 												if (json.error) {
+													callBack([]);
 													me.setState({loading: false, error: true, init: false});
 												}
 												else{
