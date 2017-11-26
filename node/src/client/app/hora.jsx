@@ -11,17 +11,22 @@ export class hora extends React.Component {
         for (let index = 0; index < 24; index++) {
             options.push(<option key={this.props.name + "_" + index} value={index}>{(index).toString()}</option>);
         }
-        return (  
-                <div className="row">
-                    <div className="col-xs-2">
-                        <label>{this.props.title}</label>
-                    </div>
-                    <div className="col-xs-10">
-                        <select 
-                            value={this.props.value}
-                            onChange={this.props.onChange}>
-                            {options}
-                        </select>
+        return (
+                <div>  
+                    <div className="row">
+                        <div className="col-xs-12">
+                            <label>{this.props.title}</label>
+                        </div>
+                    </div> 
+                    <div className="row">
+                        <div className="col-xs-12">
+                            <select
+                                className="form-control"
+                                value={this.props.value}
+                                onChange={this.props.onChange}>
+                                {options}
+                            </select>
+                        </div>
                     </div>
                 </div>
         )

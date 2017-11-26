@@ -11,6 +11,7 @@ class Buscador extends React.Component {
 			}
 				return (
 						<tr>
+								<td>{this.props.cancha.Web}</td>
 								<td>{this.props.cancha.Nombre}</td>
 								<td>{this.props.cancha.Tamanio}</td>
 								<td>
@@ -18,7 +19,7 @@ class Buscador extends React.Component {
 										<div className="col-xs-12">
 											<label>Latitud:&nbsp;</label>
 											{this.props.cancha.Latitud}
-											<label>/</label>
+											<label>&nbsp;|&nbsp;</label>
 											<label>Longitud:&nbsp;</label>
 											{this.props.cancha.Longitud}
 										</div>

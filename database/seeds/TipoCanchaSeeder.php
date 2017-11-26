@@ -20,8 +20,8 @@ class TipoCanchaSeeder extends Seeder
             'descripcion' => 'Cancha de 7'
         ]);
 		DB::table('tipo_canchas')->insert([
-            'tamanio' => 11,
-            'descripcion' => 'Cancha de 11'
+            'tamanio' => 9,
+            'descripcion' => 'Cancha de 9'
         ]);
     }
 }

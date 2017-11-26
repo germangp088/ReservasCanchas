@@ -8,6 +8,7 @@ class Buscador extends React.Component {
 				super(props);
 				this.state = {
 					cantidadCanchas: 0,
+					init: true,
 					loading: false,
 					error: false,
 					tipoCancha: '5',
@@ -48,11 +49,12 @@ class Buscador extends React.Component {
 								response.json()
 										.then(function (json) {
 												if (json.error) {
-													me.setState({loading: false, error: true});
+													callBack([]);
+													me.setState({loading: false, error: true, init: false});
 												}
 												else{
 													callBack(json);
-													me.setState({loading: false, error: false, cantidadCanchas: json.length});
+													me.setState({loading: false, error: false, init: false, cantidadCanchas: json.length});
 												}
 										}).catch(function (error) {
 												console.log('Error: ' + error.message);
@@ -86,8 +88,8 @@ class Buscador extends React.Component {
 
 		render() {
 			let button = !this.state.loading ?
-											 <input type="button" id="btnBuscar" value="Buscar" onClick={this.find}/>:
-											 <input type="button" id="btnBuscar" value="Cargando..." />
+											 <input type="button" className="btn btn-primary" id="btnBuscar" value="Buscar" onClick={this.find}/>:
+											 <input type="button" className="btn" id="btnBuscar" value="Cargando..." />
 			let mensage = this.state.error ?
 											<div class="alert alert-danger">
 												<strong>Atención!</strong> Hubo un error en la consulta.
@@ -95,10 +97,15 @@ class Buscador extends React.Component {
 											this.state.cantidadCanchas > 0 ?
 											<div class="alert alert-success">
 												<strong>Busqueda realizada!</strong> se encontraron <strong>{this.state.cantidadCanchas}</strong> canchas.
-										   </div>:null
+										   </div>:
+										   !this.state.init ?
+											<div class="alert alert-warning">
+												No se encontraron canchas.
+											</div>:null;
 
 				return (
-						<div>
+					<form>
+						<div className="form-group">
 							<div className="row">
 								<div className="col-xs-12">
 									<h5>Completa el formulario para filtrar las canchas.</h5>
@@ -111,48 +118,79 @@ class Buscador extends React.Component {
 							</div>
 							<div className="row">
 								<div className="col-xs-2">
-									<label>Tipo de cancha:</label>
+									<div className="row">
+										<div className="col-xs-12">
+											<label>Tipo de cancha:</label>
+										</div>
+									</div>
+									<div className="row">
+										<div className="col-xs-12">
+											<select 
+												className="form-control"
+												value={this.state.tipoCancha}
+												onChange={this.changeTipoCancha}>
+												<option value="5">Cancha 5</option>
+												<option value="7">Cancha 7</option>
+												<option value="9">Cancha 9</option>
+											</select>
+										</div>
+									</div>
 								</div>
-								<div className="col-xs-10">
-									<select 
-										value={this.state.tipoCancha}
-										onChange={this.changeTipoCancha}>
-										<option value="5">Cancha 5</option>
-										<option value="7">Cancha 7</option>
-										<option value="9">Cancha 9</option>
-									</select>
+								<div className="col-xs-4">
+									<div className="row">
+										<div className="col-xs-6">
+											<DatePicker 
+												title="Fecha Desde:"
+												key="fecha_reserva_desde"
+												name="fecha_reserva_desde"
+												value={this.state.fechaDesde}
+												onChange={this.changeFechaDesde}/>
+										</div>
+										<div className="col-xs-6">
+											<DatePicker 
+												title="Fecha Hasta:" 
+												key="fecha_reserva_hasta"
+												name="fecha_reserva_hasta"
+												value={this.state.fechaHasta}
+												onChange={this.changeFechaHasta}/>
+										</div>
+									</div>
 								</div>
-							</div>
-							<DatePicker 
-								title="Fecha Desde:"
-								key="fecha_reserva_desde"
-								name="fecha_reserva_desde"
-								value={this.state.fechaDesde}
-								onChange={this.changeFechaDesde}/>
-							<DatePicker 
-								title="Fecha Hasta:" 
-								key="fecha_reserva_hasta"
-								name="fecha_reserva_hasta"
-								value={this.state.fechaHasta}
-								onChange={this.changeFechaHasta}/>
-							<Hora 
-								title="Hora Desde:" 
-								key="hora_reserva_desde"
-								name="hora_reserva_desde"
-								value={this.state.horaDesde}
-								onChange={this.changeHoraDesde}/>
-							<Hora 
-								title="Hora Hasta:" 
-								key="hora_reserva_hasta"
-								name="hora_reserva_hasta"
-								value={this.state.horaHasta}
-								onChange={this.changeHoraHasta}/>
-							<div className="row">
-								<div className="col-xs-12">
-									{button}
+								<div className="col-xs-3">
+									<div className="row">
+										<div className="col-xs-6">
+											<Hora 
+											title="Hora Desde:" 
+											key="hora_reserva_desde"
+											name="hora_reserva_desde"
+											value={this.state.horaDesde}
+											onChange={this.changeHoraDesde}/>
+										</div>
+										<div className="col-xs-6">
+											<Hora 
+											title="Hora Hasta:" 
+											key="hora_reserva_hasta"
+											name="hora_reserva_hasta"
+											value={this.state.horaHasta}
+											onChange={this.changeHoraHasta}/>
+										</div>
+									</div>
+								</div>
+								<div className="col-xs-3">
+									<div className="row">
+										<div className="col-xs-12">
+											&nbsp;
+										</div>
+									</div>
+									<div className="row">
+										<div className="col-xs-12">
+											{button}
+										</div>
+									</div>
 								</div>
 							</div>
 						</div>
+					</form>
 				);
 		}
 }

@@ -7,6 +7,10 @@ class Buscador extends React.Component {
 						<thead>
 								<tr>
 										<th>
+											<label>Web&nbsp;</label>
+											<i className="fa fa-internet-explorer fa-lg" aria-hidden="true"></i>
+										</th>
+										<th>
 											<label>Nombre&nbsp;</label>
 											<i className="fa fa-futbol-o fa-lg" aria-hidden="true"></i>
 										</th>
@@ -19,9 +23,11 @@ class Buscador extends React.Component {
 											<i className="fa fa-compass fa-lg" aria-hidden="true"></i>
 										</th>
 										<th>
+											<label>&nbsp;</label>
 											<i className="fa fa-calendar fa-lg" aria-hidden="true"></i>
 										</th>
 										<th>
+											<label>&nbsp;</label>
 											<i className="fa fa-clock-o fa-lg" aria-hidden="true"></i>
 										</th>
 										<th>
@@ -35,6 +41,7 @@ class Buscador extends React.Component {
 											</div>
 										</th>
 										<th>
+											<label>&nbsp;</label>
 											<i className="fa fa-external-link-square fa-lg" aria-hidden="true"></i>
 										</th>
 								</tr>
