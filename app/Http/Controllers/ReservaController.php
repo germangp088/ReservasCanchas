@@ -272,6 +272,7 @@ class ReservaController extends Controller
 
     public function reservasNode(){
         $id = Cache::get('id'); 
+        Cache::forget('id');
         $reservas = DB::table('reservas')
                   ->join('canchas', 'cancha_id', '=', 'canchas.id')
                   ->select('reservas.*','canchas.nombre','canchas.precio_dia', 'canchas.precio_noche','canchas.tamanio')

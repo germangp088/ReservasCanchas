@@ -24,7 +24,7 @@ class HomeController extends Controller
      */
     public function index()
     {    
-        if ( Cache::has('nodeReserva') ){
+        if ( Cache::has('id') ){
             return redirect()->action('CanchaTurnoController@index');
         }
         else
