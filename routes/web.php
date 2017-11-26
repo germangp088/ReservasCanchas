@@ -42,3 +42,5 @@ Route::get('/contacto', 'contactoController@index');
 
 Route::get('/canchaTurno/index', 'CanchaTurnoController@index');
 Route::post('/canchaTurno/FiltroFecha', 'CanchaTurnoController@indexFecha');
+
+Route::get('/demoReservaNode', 'ReservaController@demoReservaNode');

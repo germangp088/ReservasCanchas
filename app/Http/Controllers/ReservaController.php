@@ -5,11 +5,16 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\CanchaController;
 use App\Http\Controllers\TurnosController;
 use App\Reserva;
 use App\CanchasTurno;
+use App\TipoCancha;
 use Cache;
+use DateTime;
+use DatePeriod;
+use DateInterval;
 
 class ReservaController extends Controller
 {
@@ -220,44 +225,140 @@ class ReservaController extends Controller
 
     public function getReservasNode(Request $request)
     {
-      if(!isset($request->horaDesde)){
-         $hora_ini = '0';
-      }else{
-         $hora_ini = $request->horaDesde;
-      }
-      if(!isset($request->horaHasta)){
-          $hora_fin = intval('23');
-      }else{
-          $hora_fin = intval($request->horaHasta) ;
-      }
-      if(!isset($request->fechaDesde)){
-        $fecha_ini = date('Y-m-d');
-      }else{
-        $fecha_ini = $request->fechaDesde;
-      }
-      if(!isset($request->fechaHasta)){
-         $fecha_fin = date('Y-m-d');
-      }else{
-         $fecha_fin = $request->fechaHasta;
-      }
-      $link = url("http://localhost:8000/Login/TriCancha?id=");
-                $tipo = $request->tipoCancha;
-                $reservas = DB::table('canchas')
-                      ->select( 'canchas.latitud as Latitud',
-                                'canchas.longitud as Longitud',
-                                'canchas.precio_dia as Precio_Dia', 
-                                'canchas.precio_noche as Precio_Noche'                       
-                        )
-                      ->get();
-       foreach ($reservas as $name => $reserva) {
-            $reserva ->Web = 'Porno';
-            $reserva ->Nombre = 'De 5';
-            $reserva ->Tamanio = '5';
-            $reserva ->Fecha = '2017-22-02';
-            $reserva ->Horario = '14';
-            $reserva ->Link = stripslashes($link."1");
-            $pepe = $reserva ->Link;
-         }
-      return $reservas; 
+        /* Verifica la hora inical */
+        if(!isset($request->horaDesde)){
+            $hora_ini = '12';
+        }else{
+            $hora_ini = $request->horaDesde;
+        }
+        /* Verifica la hora final */
+        if(!isset($request->horaHasta)){
+            $hora_fin = intval('23');
+        }else{
+            $hora_fin = intval($request->horaHasta) ;
+        }
+        /* Verifica el día inicial */
+        if(!isset($request->fechaDesde)){
+            $fecha_ini = date('Y-m-d');
+        }else{
+            $fecha_ini = $request->fechaDesde;
+        }
+        /* Verifica el día final */
+        if(!isset($request->fechaHasta)){
+            $fecha = date("Y-m-j",strtotime("$countFechas +7 day") );
+            $fecha_fin = $fecha;
+        }else{
+            $fecha_fin = $request->fechaHasta;
+        }
+        /* Verifica el tamaño de cancha */
+        if (!isset($request->tipoCancha)) {
+            $tipoCancha = 5;
+        } else {
+            $tipoCancha = $request->tipoCancha;
+        }
+
+        /* Obtiene datos de la base */
+        $link = url("http://localhost:8000/Login/FutbolYa?id=");
+        /*llamar a la funcion*/
+        $reservas = this->demoReservaNode($tipoCancha, $fecha_ini, $fecha_fin, $hora_ini, $hora_fin);
+
+        foreach ($reservas as $name => $reserva) {
+            $reserva ->Web = 'Argento Futbol';
+            $reserva ->Link = stripslashes($link.$reserva->Link);
+        }
+        return $reservas; 
     }
+
+    public function reservasNode(){
+        $id = Cache::get('id'); 
+        $reservas = DB::table('reservas')
+                  ->join('canchas', 'cancha_id', '=', 'canchas.id')
+                  ->select('reservas.*','canchas.nombre','canchas.precio_dia', 'canchas.precio_noche','canchas.tamanio')
+                  ->where('reservas.id',$id)
+                  //->orderBy('reservas.fecha','asc',',','reservas.horario','asc')
+                  ->get();
+        Cache::flush(); 
+        return view('ReservaNode', array('reservas' => $reservas));
+    }
+    public function loginNode(Request $request){
+      $id = $request->id;
+      Cache::put('id',$id, 2000);
+      
+      return view('LoginNode');
+    }
+
+    public function demoReservaNode ($tamanio_cancha, $fecha_ini,$fecha_fin, $hora_ini, $hora_fin){
+        /* generar array con rango de fechas */
+        $arrayFechas = array();
+        $countFechas = $fecha_ini;
+        while ( $countFechas <= $fecha_fin )
+        {
+            $nuevaFecha = array('fecha' => $countFechas );
+            array_push($arrayFechas, $nuevaFecha);
+            $countFechas = date("Y-m-j",strtotime("$countFechas +1 day") );
+        }
+        $arrayFechas = json_encode($arrayFechas);
+        //echo "<br>".$arrayFechas;
+        
+        /*levantar tamaño según el tipo de cancha*/
+        $tipoCanchas = DB::table ('tipo_canchas')->get();
+
+        /*levanto reserva única*/
+        foreach ($tipoCanchas as $element) {
+            if ($element->tamanio == $tamanio_cancha) {
+                $tipoDeCancha = array('id' => $element->id, 'tamanio'=>$element->tamanio, 'detalle'->$element->descripcion );
+            }    
+        }
+        $tipoCanchas = json_encode($tipoDeCancha);
+        //echo "<br>".$tipoCanchas;
+
+        /*levantar todas las canchas que coincidan con el tipo_cancha*/
+        $tipos = json_decode($tipoCanchas);
+        $canchas = DB::table ('canchas')->where('id_tipo_cancha', $tipos->id)->get();
+        //echo "<br>".$canchas;
+
+        /*levantar todos los turnos dentro del limite de las horas*/
+        $turnos = DB::table('turnos')->whereBetween('hora', [$hora_ini, $hora_fin])->get();
+        //echo "<br>".$turnos;
+
+        /*levantar todas las reservas dentro del limite de las fechas*/
+        $reservas = DB::table('reservas')->get();
+        //echo "<br>".$reservas;
+
+        $arrayNode = array();
+        $arrayParaFiltro = array();
+        $fechas = json_decode($arrayFechas);
+        /*formación elemento para array retorno*/
+        foreach ($fechas as $f) {
+            foreach ($canchas as $c) {
+                foreach ($turnos as $t) {
+                    foreach ($reservas as $r) {
+                        if ($f->fecha == $r->fecha and $c->id == $r->id_cancha and $t->id == $r->id_turno){
+                            $archivoExistente = true;
+                        } else {
+                            $archivoExistente = false;
+                        }
+                    }
+                    if ($archivoExistente == false) {
+                        $elemntoNode = array(
+                            'Web' => "Argento Futbol",
+                            'Nombre' => $c->nombre,
+                            'Tamanio' => $tipos->detalle,
+                            'Latitud' => $c->latitud,
+                            'Longitud' => $c->longitud,
+                            'Precio_Dia' => $c->precio_dia,
+                            'Precio_Noche' => $c->precio_noche,
+                            'Fecha' => $f->fecha,
+                            'Horario' => $t->hora,
+                            'Link' => $c->id );
+                        array_push($arrayNode, $elemntoNode);
+                    }
+                }
+            }
+        }
+        $arrayNode = json_encode($arrayNode);
+        echo "<br>".$arrayNode;
+        return $arrayNode;
+    }
+
 }
