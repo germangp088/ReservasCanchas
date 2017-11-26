@@ -1,7 +1,10 @@
 import React from 'react';
 import {render} from 'react-dom';
-import Buscador from './buscador.jsx';
+import Buscador from './buscador/buscador.jsx';
 import Table from './table/table.jsx';
+import NavBar from './home/navBar.jsx';
+import Header from './home/header.jsx';
+import Footer from './home/footer.jsx';
 
 class App extends React.Component {
 		constructor(props) {
@@ -19,9 +22,12 @@ class App extends React.Component {
 		render() {
 				return (
 						<div className="container">
-								<h1>Buscar</h1>
-								<Buscador callBack={this.setCanchas}/>
-								<Table canchas={this.state.canchas}/>
+							<NavBar />
+							<Header />
+							<Buscador callBack={this.setCanchas}/>
+							<hr />
+							<Table canchas={this.state.canchas}/>
+							<Footer />
 						</div>
 				);
 		}

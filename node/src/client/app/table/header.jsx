@@ -6,46 +6,46 @@ class Buscador extends React.Component {
 				return (
 						<thead>
 								<tr>
-										<th>
-											<label>Web&nbsp;</label>
-											<i className="fa fa-internet-explorer fa-lg" aria-hidden="true"></i>
-										</th>
-										<th>
-											<label>Nombre&nbsp;</label>
-											<i className="fa fa-futbol-o fa-lg" aria-hidden="true"></i>
-										</th>
-										<th>
-											<label>Tipo&nbsp;</label>
-											<i className="fa fa-futbol-o fa-lg" aria-hidden="true"></i>
-										</th>
-										<th>
-											<label>Coordenadas&nbsp;</label>
-											<i className="fa fa-compass fa-lg" aria-hidden="true"></i>
-										</th>
-										<th>
-											<label>&nbsp;</label>
-											<i className="fa fa-calendar fa-lg" aria-hidden="true"></i>
-										</th>
-										<th>
-											<label>&nbsp;</label>
-											<i className="fa fa-clock-o fa-lg" aria-hidden="true"></i>
-										</th>
-										<th>
-											<div className="row">
-												<div className="col-xs-12">
-													<label>Precios:&nbsp;</label>
-													<i className="fa fa-sun-o fa-lg" aria-hidden="true"></i>
-													<label>/</label>
-													<i className="fa fa-moon-o fa-lg" aria-hidden="true"></i>
-												</div>
+									<th className="text-center">
+										<label>Web&nbsp;</label>
+										<i className="fa fa-internet-explorer fa-lg" aria-hidden="true"></i>
+									</th>
+									<th className="text-center">
+										<label>Nombre&nbsp;</label>
+										<i className="fa fa-futbol-o fa-lg" aria-hidden="true"></i>
+									</th>
+									<th className="text-center">
+										<label>Tipo&nbsp;</label>
+										<i className="fa fa-futbol-o fa-lg" aria-hidden="true"></i>
+									</th>
+									<th className="text-center">
+										<label>Coordenadas&nbsp;</label>
+										<i className="fa fa-compass fa-lg" aria-hidden="true"></i>
+									</th>
+									<th className="text-center">
+										<label>&nbsp;</label>
+										<i className="fa fa-calendar fa-lg" aria-hidden="true"></i>
+									</th>
+									<th className="text-center">
+										<label>&nbsp;</label>
+										<i className="fa fa-clock-o fa-lg" aria-hidden="true"></i>
+									</th>
+									<th className="text-center">
+										<div className="row">
+											<div className="col-xs-12">
+												<label>Precios:&nbsp;</label>
+												<i className="fa fa-sun-o fa-lg" aria-hidden="true"></i>
+												<label>/</label>
+												<i className="fa fa-moon-o fa-lg" aria-hidden="true"></i>
 											</div>
-										</th>
-										<th>
-											<label>&nbsp;</label>
-											<i className="fa fa-external-link-square fa-lg" aria-hidden="true"></i>
-										</th>
-								</tr>
-						</thead>
+										</div>
+									</th>
+									<th className="text-center">
+										<label>&nbsp;</label>
+										<i className="fa fa-external-link-square fa-lg" aria-hidden="true"></i>
+									</th>
+							</tr>
+					</thead>
 				);
 		}
 }
