@@ -20,6 +20,18 @@ class Buscador extends React.Component {
 				this.changeFechaDesde = this.changeFechaDesde.bind(this);
 				this.changeFechaHasta = this.changeFechaHasta.bind(this);
 				this.changeTipoCancha = this.changeTipoCancha.bind(this);
+				this.buildURL = this.buildURL.bind(this);
+		}
+
+		buildURL() {
+			let url = '/canchasSimultaneos';
+			url += '/tipoCancha=' + this.state.tipoCancha;
+			url += '/fechaDesde=' + this.state.fechaDesde;
+			url += '/fechaHasta=' + this.state.fechaHasta;
+			url += '/horaDesde=' + this.state.horaDesde;
+			url += '/horaHasta=' + this.state.horaHasta;
+
+			return url;
 		}
 
 		find() {
@@ -27,7 +39,7 @@ class Buscador extends React.Component {
 				let callBack = this.props.callBack;
 				this.setState({loading: true});
 				let me = this;
-				fetch('/canchasSimultaneos').then(function (response) {
+				fetch(this.buildURL()).then(function (response) {
 						var contentType = response
 								.headers
 								.get("content-type");

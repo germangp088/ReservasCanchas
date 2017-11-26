@@ -1,8 +1,8 @@
 {
   "Canchas": {
     "serverUri": [
-            {"server": "http://localhost:8001/reservas/pepe"},
-            {"server": "http://localhost:8000/reservas/pepe"}
+            {"url": "http://localhost:8000/getReservasNode"},
+            {"url": "http://localhost:8001/getReservasNode"}
         ],
       "host": {
         "port": 3001

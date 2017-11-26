@@ -11,10 +11,9 @@ app.use(bodyParser.urlencoded());
 app.use(bodyParser.json());
 app.use("/",express.static(baseFolder));
 
-app.get('/canchasSimultaneos', function(req, res){
-	console.log(config.get('Canchas.serverUri'));
+app.get('/canchasSimultaneos/:tipoCancha/:fechaDesde/:fechaHasta/:horaDesde/:horaHasta', function(req, res){
 	var promesas = [];
-	promesas.push(constants.serverUri.map(Canchas.getCanchas));
+	promesas.push(config.get('Canchas.serverUri').map(Canchas.getCanchas));
 	
 	q.all(promesas).then(
 		function(canchas){

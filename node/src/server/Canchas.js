@@ -4,7 +4,7 @@ var fetch = require('node-fetch');
 var Canchas = {
 	getCanchas: function (server) {
 		var deferred = q.defer();
-		fetch(server)
+		fetch(server.url)
 			.then(function(res) {
 				return res.json();
 			}).then(function(json) {
