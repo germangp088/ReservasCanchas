@@ -250,7 +250,7 @@ class ReservaController extends Controller
                         )
                       ->get();
        foreach ($reservas as $name => $reserva) {
-            $reserva ->Web = 'Futbol Da Vinci';
+            $reserva ->Web = 'Porno';
             $reserva ->Nombre = 'De 5';
             $reserva ->Tamanio = '5';
             $reserva ->Fecha = '2017-22-02';

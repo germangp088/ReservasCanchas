@@ -19,6 +19,7 @@ app.get('/canchasSimultaneos', function(req, res){
 			for (var index = 0; index < data.length; index++) {
 				canchas = canchas.concat(data[index]);
 			}
+			console.log(canchas);
 			res.json(canchas);
 		})
 		.catch(

@@ -13,7 +13,6 @@ var Canchas = {
 			.then(function(res) {
 				return res.json();
 			}).then(function(json) {
-				console.log(json);
 				deferred.resolve(json);
 			}).catch(function(err) {
 				console.log(err);
