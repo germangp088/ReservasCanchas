@@ -21,18 +21,23 @@ export class date extends React.Component {
         let today = this.parseDate(date);
         date.setDate(date.getDate() + 7);
         let maxDate = this.parseDate(date);
-        return (  
-                <div className="row">
-                    <div className="col-xs-2">
-                        <label>{this.props.title}</label>
+        return (
+                <div>
+                    <div className="row">
+                        <div className="col-xs-12">
+                            <label>{this.props.title}</label>
+                        </div>
                     </div>
-                    <div className="col-xs-10">
-        	            <input type="date" 
+                    <div className="row">
+                        <div className="col-xs-12">
+                            <input type="date" 
+                                className="form-control"
                                 name={this.props.name}
                                 min={today}
                                 max={maxDate}
                                 value={this.props.value}
                                 onChange={this.props.onChange} />
+                        </div>
                     </div>
                 </div>
         )
