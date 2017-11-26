@@ -301,25 +301,26 @@ class ReservaController extends Controller
         $arrayFechas = json_encode($arrayFechas);
         //echo "<br>".$arrayFechas;
         
-        /*levantar tama�o seg�n el tipo de cancha*/
+        //levantar tama�o seg�n el tipo de cancha
         $tipoCanchas = DB::table ('tipo_canchas')->where('tamanio', $tamanio_cancha)->get();
+        //echo "<br><br>".$tipoCanchas;
 
-        /*levantar todas las canchas que coincidan con el tipo_cancha*/
-        $canchas = DB::table ('canchas')->where('id_tipo_cancha', $tipoCanchas->id)->get();
-        //echo "<br>".$canchas;
+        //levantar todas las canchas que coincidan con el tipo_cancha
+        $canchas = DB::table ('canchas')->where('id_tipo_cancha', $tipoCanchas[0]->id)->get();
+        //echo "<br><br>".$canchas;
 
-        /*levantar todos los turnos dentro del limite de las horas*/
+        //levantar todos los turnos dentro del limite de las horas
         $turnos = DB::table('turnos')->whereBetween('hora', [$hora_ini, $hora_fin])->get();
-        //echo "<br>".$turnos;
+        //echo "<br><br>".$turnos;
 
-        /*levantar todas las reservas dentro del limite de las fechas*/
+        //levantar todas las reservas dentro del limite de las fechas
         $reservas = DB::table('reservas')->get();
-        //echo "<br>".$reservas;
+        //echo "<br><br>".$reservas;
 
         $arrayNode = array();
         $arrayParaFiltro = array();
         $fechas = json_decode($arrayFechas);
-        /*formaci�n elemento para array retorno*/
+        //formaci�n elemento para array retorno
         $archivoExistente = false;
         foreach ($fechas as $f) {
             foreach ($canchas as $c) {
@@ -335,7 +336,7 @@ class ReservaController extends Controller
                         $elemntoNode = array(
                             'Web' => "Argento Futbol",
                             'Nombre' => $c->nombre,
-                            'Tamanio' => $tipoCanchas->detalle,
+                            'Tamanio' => $tipoCanchas[0]->descripcion,
                             'Latitud' => $c->latitud,
                             'Longitud' => $c->longitud,
                             'Precio_Dia' => $c->precio_dia,
