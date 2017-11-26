@@ -7,7 +7,9 @@ class Buscador extends React.Component {
 		constructor(props) {
 				super(props);
 				this.state = {
-					loading: false,		
+					cantidadCanchas: 0,
+					loading: false,
+					error: false,
 					tipoCancha: '5',
 					fechaDesde: '',
 					fechaHasta: '',
@@ -43,11 +45,17 @@ class Buscador extends React.Component {
 								.headers
 								.get("content-type");
 						if (contentType && contentType.indexOf("application/json") !== -1) {
-								response
-										.json()
+								response.json()
 										.then(function (json) {
-												callBack(json);
-												me.setState({loading: false});
+												if (json.error) {
+													me.setState({loading: false, error: true});
+												}
+												else{
+													callBack(json);
+													me.setState({loading: false, error: false, cantidadCanchas: json.length});
+												}
+										}).catch(function (error) {
+												console.log('Error: ' + error.message);
 										});
 								}
 						})
@@ -80,12 +88,25 @@ class Buscador extends React.Component {
 			let button = !this.state.loading ?
 											 <input type="button" id="btnBuscar" value="Buscar" onClick={this.find}/>:
 											 <input type="button" id="btnBuscar" value="Cargando..." />
+			let mensage = this.state.error ?
+											<div class="alert alert-danger">
+												<strong>Atención!</strong> Hubo un error en la consulta.
+											</div>:
+											this.state.cantidadCanchas > 0 ?
+											<div class="alert alert-success">
+												<strong>Busqueda realizada!</strong> se encontraron <strong>{this.state.cantidadCanchas}</strong> canchas.
+										   </div>:null
 
 				return (
 						<div>
 							<div className="row">
 								<div className="col-xs-12">
 									<h5>Completa el formulario para filtrar las canchas.</h5>
+								</div>
+							</div>
+							<div className="row">
+								<div className="col-xs-12">
+									{mensage}
 								</div>
 							</div>
 							<div className="row">

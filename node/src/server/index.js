@@ -25,7 +25,8 @@ app.get('/canchasSimultaneos', function(req, res){
 		.catch(
 			function(error){
 				console.log(error);
-				res.send(error);
+				error.error = true;
+        		res.json(error);
 		});
 });
 

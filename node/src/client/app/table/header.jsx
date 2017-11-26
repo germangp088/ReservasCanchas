@@ -8,21 +8,21 @@ class Buscador extends React.Component {
 								<tr>
 										<th>
 											<label>Nombre&nbsp;</label>
-											<i class="fa fa-futbol-o fa-lg" aria-hidden="true"></i>
+											<i className="fa fa-futbol-o fa-lg" aria-hidden="true"></i>
 										</th>
 										<th>
 											<label>Tipo&nbsp;</label>
-											<i class="fa fa-futbol-o fa-lg" aria-hidden="true"></i>
+											<i className="fa fa-futbol-o fa-lg" aria-hidden="true"></i>
 										</th>
 										<th>
 											<label>Coordenadas&nbsp;</label>
-											<i class="fa fa-compass fa-lg" aria-hidden="true"></i>
+											<i className="fa fa-compass fa-lg" aria-hidden="true"></i>
 										</th>
 										<th>
-											<i class="fa fa-calendar fa-lg" aria-hidden="true"></i>
+											<i className="fa fa-calendar fa-lg" aria-hidden="true"></i>
 										</th>
 										<th>
-											<i class="fa fa-clock-o fa-lg" aria-hidden="true"></i>
+											<i className="fa fa-clock-o fa-lg" aria-hidden="true"></i>
 										</th>
 										<th>
 											<div className="row">
