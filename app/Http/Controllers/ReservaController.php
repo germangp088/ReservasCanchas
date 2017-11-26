@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\CanchaController;
@@ -236,20 +237,20 @@ class ReservaController extends Controller
         }else{
             $hora_fin = intval($request->horaHasta) ;
         }
-        /* Verifica el dÃ­a inicial */
+        /* Verifica el día inicial */
         if(!isset($request->fechaDesde)){
             $fecha_ini = date('Y-m-d');
         }else{
             $fecha_ini = $request->fechaDesde;
         }
-        /* Verifica el dÃ­a final */
+        /* Verifica el día final */
         if(!isset($request->fechaHasta)){
             $fecha = date("Y-m-j",strtotime("$countFechas +7 day") );
             $fecha_fin = $fecha;
         }else{
             $fecha_fin = $request->fechaHasta;
         }
-        /* Verifica el tamaÃ±o de cancha */
+        /* Verifica el tamaño de cancha */
         if (!isset($request->tipoCancha)) {
             $tipoCancha = 5;
         } else {
@@ -299,10 +300,10 @@ class ReservaController extends Controller
         $arrayFechas = json_encode($arrayFechas);
         //echo "<br>".$arrayFechas;
         
-        /*levantar tamaÃ±o segÃºn el tipo de cancha*/
+        /*levantar tamaño según el tipo de cancha*/
         $tipoCanchas = DB::table ('tipo_canchas')->get();
 
-        /*levanto reserva Ãºnica*/
+        /*levanto reserva única*/
         foreach ($tipoCanchas as $element) {
             if ($element->tamanio == $tamanio_cancha) {
                 $tipoDeCancha = array('id' => $element->id, 'tamanio'=>$element->tamanio, 'detalle'->$element->descripcion );
@@ -327,7 +328,7 @@ class ReservaController extends Controller
         $arrayNode = array();
         $arrayParaFiltro = array();
         $fechas = json_decode($arrayFechas);
-        /*formaciÃ³n elemento para array retorno*/
+        /*formación elemento para array retorno*/
         foreach ($fechas as $f) {
             foreach ($canchas as $c) {
                 foreach ($turnos as $t) {

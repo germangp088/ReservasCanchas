@@ -7,7 +7,8 @@ class Buscador extends React.Component {
 						<thead>
 								<tr>
 										<th>Cancha</th>
-										<th>Precio</th>
+										<th>Precio Día</th>
+										<th>Precio Noche</th>
 										<th>Link</th>
 								</tr>
 						</thead>
