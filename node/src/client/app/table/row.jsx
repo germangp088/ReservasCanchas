@@ -2,7 +2,28 @@ import React from 'react';
 import {render} from 'react-dom';
 
 class Buscador extends React.Component {
-		render() {
+	constructor(props) {
+		super(props);
+	}
+
+	save(){
+        const data = {
+            "cancha" : JSON.stringify(this.props.cancha)
+        };
+        const values = fetch("/saveCanchaBusqueda",{
+            "headers": {
+                'Content-Type': 'application/json'
+            },
+            "method": "POST",
+            "body": JSON.stringify(data)
+        })
+        .then((res) => res.json())
+        .then((datos) => {
+            console.log(datos)
+        });
+	}
+	
+	render() {
 			let icon = "moon";
 			let precio = this.props.cancha.Precio_Noche;
 			if (this.props.cancha.Horario < 19) {
@@ -11,34 +32,34 @@ class Buscador extends React.Component {
 			}
 				return (
 						<tr>
-								<td>{this.props.cancha.Web}</td>
-								<td>{this.props.cancha.Nombre}</td>
-								<td>{this.props.cancha.Tamanio}</td>
-								<td>
-									<div className="row">
-										<div className="col-xs-12">
-											<label>Latitud:&nbsp;</label>
-											{this.props.cancha.Latitud}
-											<label>&nbsp;|&nbsp;</label>
-											<label>Longitud:&nbsp;</label>
-											{this.props.cancha.Longitud}
-										</div>
+							<td>{this.props.cancha.Web}</td>
+							<td>{this.props.cancha.Nombre}</td>
+							<td>{this.props.cancha.Tamanio}</td>
+							<td>
+								<div className="row">
+									<div className="col-xs-12">
+										<label>Latitud:&nbsp;</label>
+										{this.props.cancha.Latitud}
+										<label>&nbsp;|&nbsp;</label>
+										<label>Longitud:&nbsp;</label>
+										{this.props.cancha.Longitud}
 									</div>
-								</td>
-								<td>{this.props.cancha.Fecha}</td>
-								<td>{this.props.cancha.Horario}</td>
-								<td>
-									<div className="row">
-										<div className="col-xs-12">
-											<i className={"fa fa-" + icon + "-o fa-lg"} aria-hidden="true"></i>
-											${precio}
-										</div>
+								</div>
+							</td>
+							<td>{this.props.cancha.Fecha}</td>
+							<td>{this.props.cancha.Horario}</td>
+							<td>
+								<div className="row">
+									<div className="col-xs-12">
+										<i className={"fa fa-" + icon + "-o fa-lg"} aria-hidden="true"></i>
+										${precio}
 									</div>
-								</td>
-								<td>
-									<a href={this.props.cancha.Link} target="_blank">VER</a>
-								</td>
-						</tr>
+								</div>
+							</td>
+							<td>
+								<a onClick={() => this.save()} href={this.props.cancha.Link} target="_blank">VER</a>
+							</td>
+					</tr>
 				);
 		}
 }

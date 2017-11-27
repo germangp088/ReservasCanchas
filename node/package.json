@@ -20,14 +20,12 @@
     "bootstrap": "^3.3.7",
     "config": "^1.28.1",
     "express": "^4.16.2",
-    "jsonwebtoken": "^8.1.0",
-    "mysql": "^2.15.0",
+    "mongoose": "^4.13.5",
     "node-fetch": "^1.7.3",
     "nodemon": "^1.12.1",
     "q": "^1.5.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-mongo": "0.0.0",
     "webpack": "^3.8.1"
   }
 }

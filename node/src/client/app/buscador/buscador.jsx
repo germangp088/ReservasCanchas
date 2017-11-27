@@ -91,15 +91,15 @@ class Buscador extends React.Component {
 											 <input type="button" className="btn btn-primary" id="btnBuscar" value="Buscar" onClick={this.find}/>:
 											 <input type="button" className="btn" id="btnBuscar" value="Cargando..." />
 			let mensage = this.state.error ?
-											<div class="alert alert-danger">
+											<div className="alert alert-danger">
 												<strong>Atención!</strong> Hubo un error en la consulta.
 											</div>:
 											this.state.cantidadCanchas > 0 ?
-											<div class="alert alert-success">
+											<div className="alert alert-success">
 												<strong>Busqueda realizada!</strong> se encontraron <strong>{this.state.cantidadCanchas}</strong> canchas.
 										   </div>:
 										   !this.state.init ?
-											<div class="alert alert-warning">
+											<div className="alert alert-warning">
 												No se encontraron canchas.
 											</div>:null;
 
