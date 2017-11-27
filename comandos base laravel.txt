@@ -1,0 +1,15 @@
+desde el cmd
+
+ir a la carpeta del proyecto laravel
+
+-- migraciones
+php artisan migrate --seed
+
+-- arrancar servidor
+php artisan serve
+
+-- desde navegador
+localhost:8000/home
+
+-- cortar servidor
+control + C

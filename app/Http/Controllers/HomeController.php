@@ -25,7 +25,6 @@ class HomeController extends Controller
     public function index()
     {    
         if ( Cache::has('id_cancha') ){
-            echo "existen datos en la cache";
             $id_cancha = Cache::get('id_cancha'); 
             $id_turno = Cache::get('id_turno');
             $fecha = Cache::get('fecha');
@@ -34,7 +33,6 @@ class HomeController extends Controller
         }
         else
         {
-            echo "NO existen datos en la cache";
             return view('index');//home
         }
         
