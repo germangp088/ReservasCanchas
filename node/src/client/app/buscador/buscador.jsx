@@ -11,6 +11,7 @@ class Buscador extends React.Component {
 					init: true,
 					loading: false,
 					error: false,
+					errorMessage: '',
 					tipoCancha: '5',
 					fechaDesde: '',
 					fechaHasta: '',
@@ -38,6 +39,20 @@ class Buscador extends React.Component {
 		}
 
 		find() {
+				if(this.state.horaDesde != "" && this.state.horaHasta != ""){
+					if(parseInt(this.state.horaDesde) > parseInt(this.state.horaHasta)){
+						this.setState({loading: false, error: true, errorMessage: "La hora desde no puede ser mayor a la de hasta.", init: false});
+						return;
+					}
+				}
+
+				if(this.state.fechaDesde != "" && this.state.fechaHasta != ""){
+					if(this.state.fechaDesde > this.state.fechaHasta){
+						this.setState({loading: false, error: true, errorMessage: "La fecha desde no puede ser mayor a la de hasta.", init: false});
+						return;
+					}
+				}
+
 				let callBack = this.props.callBack;
 				this.setState({loading: true});
 				let me = this;
@@ -50,19 +65,19 @@ class Buscador extends React.Component {
 										.then(function (json) {
 												if (json.error) {
 													callBack([]);
-													me.setState({loading: false, error: true, init: false});
+													me.setState({loading: false, error: true,errorMessage: "Hubo un error en la consulta.", init: false});
 												}
 												else{
 													callBack(json);
-													me.setState({loading: false, error: false, init: false, cantidadCanchas: json.length});
+													me.setState({loading: false, error: false,errorMessage: "", init: false, cantidadCanchas: json.length});
 												}
 										}).catch(function (error) {
-												console.log('Error: ' + error.message);
+											me.setState({loading: false, error: true, errorMessage: error.message, init: false});
 										});
 								}
 						})
 						.catch(function (error) {
-								console.log('Error: ' + error.message);
+							me.setState({loading: false, error: true, errorMessage: error.message, init: false});
 						});
 		}
 
@@ -92,7 +107,7 @@ class Buscador extends React.Component {
 											 <input type="button" className="btn" id="btnBuscar" value="Cargando..." />
 			let mensage = this.state.error ?
 											<div className="alert alert-danger">
-												<strong>Atención!</strong> Hubo un error en la consulta.
+												<strong>Atención!</strong> {this.state.errorMessage}
 											</div>:
 											this.state.cantidadCanchas > 0 ?
 											<div className="alert alert-success">
