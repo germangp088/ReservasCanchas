@@ -28,8 +28,8 @@ class HomeController extends Controller
             $id_cancha = Cache::get('id_cancha'); 
             $id_turno = Cache::get('id_turno');
             $fecha = Cache::get('fecha');
-            Cache::flush(); 
-            return redirect()->action('ReservaController@senia', $id_cancha, $id_turno, $fecha);
+            return redirect()->action('ReservaController@senia',
+                ['id_cancha' => $id_cancha,'id_turno' => $id_turno,'fecha' => $fecha]);
         }
         else
         {

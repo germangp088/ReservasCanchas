@@ -92,14 +92,14 @@ class ReservaController extends Controller
      */
     public function create(Request $req)
     {  
+        Cache::flush(); 
+
         $req->validate([
             'id_cancha' => 'required|exists:canchas,id',
             'id_turno' => 'required|exists:turnos,id',
             'fecha' => 'required|date',
             'senia' => 'required|numeric|min:0'
         ]);
-        
-        echo "Id_turno->".$req->id_turno;   
 
 		$reserva = new Reserva ();
 		
@@ -267,15 +267,31 @@ class ReservaController extends Controller
     }
 
     public function preSeniaNode(Request $request){
+        Cache::flush(); 
+
         $id_cancha = $request->id_cancha;
         $id_turno = $request->id_turno;
         $fecha = $request->fecha;
 
-        Cache::put('id_cancha',$id_cancha, 2000);
-        Cache::put('id_turno',$id_turno, 2000);
-        Cache::put('fecha',$fecha, 2000);
+        Cache::add('id_cancha',$id_cancha, 2000);
+        Cache::add('id_turno',$id_turno, 2000);
+        Cache::add('fecha',$fecha, 2000);
 
-        $this->senia($id_cancha, $id_turno, $fecha);
+        $reservas = DB::table('reservas')->where ('id_cancha', $id_cancha)
+                ->where ('id_turno', $id_turno)
+                ->where ('fecha', $fecha)->get();
+
+        if (sizeof($reservas) == 0)
+        {
+            return redirect()->action('ReservaController@senia',
+                ['id_cancha' => $id_cancha,'id_turno' => $id_turno,'fecha' => $fecha]);
+        }
+        else 
+        {
+            Cache::flush(); 
+            return redirect()->action('HomeController@index');
+        }
+            
     }
 
     public function setReservaNode($tamanio_cancha, $fecha_ini,$fecha_fin, $hora_ini, $hora_fin){
