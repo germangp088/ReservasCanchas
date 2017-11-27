@@ -4,6 +4,7 @@ import {render} from 'react-dom';
 class Buscador extends React.Component {
 	constructor(props) {
 		super(props);
+        this.fixData = this.fixData.bind(this);
 	}
 
 	save(){
@@ -22,7 +23,11 @@ class Buscador extends React.Component {
             console.log(datos)
         });
 	}
-	
+
+	fixData(data){
+        return data.toString().length == 1 ? "0" + data : data;
+    }
+
 	render() {
 			let icon = "moon";
 			let precio = this.props.cancha.Precio_Noche;
@@ -30,6 +35,8 @@ class Buscador extends React.Component {
 				icon = "sun";
 				precio = this.props.cancha.Precio_Dia;
 			}
+			let fechaSplit = this.props.cancha.Fecha.split("-");
+			let fecha = this.fixData(fechaSplit[2]) + "/" + this.fixData(fechaSplit[1]) +"/" + fechaSplit[0];
 				return (
 						<tr>
 							<td>{this.props.cancha.Web}</td>
@@ -46,7 +53,7 @@ class Buscador extends React.Component {
 									</div>
 								</div>
 							</td>
-							<td>{this.props.cancha.Fecha}</td>
+							<td>{fecha}</td>
 							<td>{this.props.cancha.Horario}</td>
 							<td>
 								<div className="row">
