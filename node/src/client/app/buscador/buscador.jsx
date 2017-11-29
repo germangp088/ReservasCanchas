@@ -120,7 +120,7 @@ class Buscador extends React.Component {
 
 				return (
 					<form>
-						<div className="form-group">
+						<div className="form-group fondo pad">
 							<div className="row">
 								<div className="col-xs-12">
 									<h3>Completa el formulario para filtrar las canchas.</h3>
