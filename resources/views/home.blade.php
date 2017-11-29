@@ -8,6 +8,12 @@
 	        <div class="titleline-icon"></div>
 	    </div>
 	</div>
+
+	@if (Cache::has('canchaDisponible'))
+		<div class="alert alert-danger" role="alert">¡Error! La cancha ya se encuentra reservada!</div>
+		{{ Cache::flush(); }}
+	@endif
+
 		<!-- CARRUSEL DE IMAGENES DE CANCHAS -->
 	<div id="myCarousel" class="carousel slide" data-ride="carousel">
 			<!-- Indicators -->

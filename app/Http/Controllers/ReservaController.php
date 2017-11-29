@@ -289,6 +289,7 @@ class ReservaController extends Controller
         else 
         {
             Cache::flush(); 
+            Cache::add('canchaDisponible', 0, 2000);
             return redirect()->action('HomeController@index');
         }
             
