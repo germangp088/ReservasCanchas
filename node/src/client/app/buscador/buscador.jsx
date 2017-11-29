@@ -11,6 +11,7 @@ class Buscador extends React.Component {
 					init: true,
 					loading: false,
 					error: false,
+					errorMessage: '',
 					tipoCancha: '5',
 					fechaDesde: '',
 					fechaHasta: '',
@@ -38,6 +39,20 @@ class Buscador extends React.Component {
 		}
 
 		find() {
+				if(this.state.horaDesde != "" && this.state.horaHasta != ""){
+					if(parseInt(this.state.horaDesde) > parseInt(this.state.horaHasta)){
+						this.setState({loading: false, error: true, errorMessage: "La hora desde no puede ser mayor a la de hasta.", init: false});
+						return;
+					}
+				}
+
+				if(this.state.fechaDesde != "" && this.state.fechaHasta != ""){
+					if(this.state.fechaDesde > this.state.fechaHasta){
+						this.setState({loading: false, error: true, errorMessage: "La fecha desde no puede ser mayor a la de hasta.", init: false});
+						return;
+					}
+				}
+
 				let callBack = this.props.callBack;
 				this.setState({loading: true});
 				let me = this;
@@ -50,19 +65,19 @@ class Buscador extends React.Component {
 										.then(function (json) {
 												if (json.error) {
 													callBack([]);
-													me.setState({loading: false, error: true, init: false});
+													me.setState({loading: false, error: true,errorMessage: "Hubo un error en la consulta.", init: false});
 												}
 												else{
 													callBack(json);
-													me.setState({loading: false, error: false, init: false, cantidadCanchas: json.length});
+													me.setState({loading: false, error: false,errorMessage: "", init: false, cantidadCanchas: json.length});
 												}
 										}).catch(function (error) {
-												console.log('Error: ' + error.message);
+											me.setState({loading: false, error: true, errorMessage: error.message, init: false});
 										});
 								}
 						})
 						.catch(function (error) {
-								console.log('Error: ' + error.message);
+							me.setState({loading: false, error: true, errorMessage: error.message, init: false});
 						});
 		}
 
@@ -91,24 +106,24 @@ class Buscador extends React.Component {
 											 <input type="button" className="btn btn-primary" id="btnBuscar" value="Buscar" onClick={this.find}/>:
 											 <input type="button" className="btn" id="btnBuscar" value="Cargando..." />
 			let mensage = this.state.error ?
-											<div class="alert alert-danger">
-												<strong>Atención!</strong> Hubo un error en la consulta.
+											<div className="alert alert-danger">
+												<strong>Atención!</strong> {this.state.errorMessage}
 											</div>:
 											this.state.cantidadCanchas > 0 ?
-											<div class="alert alert-success">
+											<div className="alert alert-success">
 												<strong>Busqueda realizada!</strong> se encontraron <strong>{this.state.cantidadCanchas}</strong> canchas.
 										   </div>:
 										   !this.state.init ?
-											<div class="alert alert-warning">
+											<div className="alert alert-warning">
 												No se encontraron canchas.
 											</div>:null;
 
 				return (
 					<form>
-						<div className="form-group">
+						<div className="form-group fondo pad">
 							<div className="row">
 								<div className="col-xs-12">
-									<h5>Completa el formulario para filtrar las canchas.</h5>
+									<h3>Completa el formulario para filtrar las canchas.</h3>
 								</div>
 							</div>
 							<div className="row">

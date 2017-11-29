@@ -1,10 +1,11 @@
 import React from 'react';
 import {render} from 'react-dom';
 import Buscador from './buscador/buscador.jsx';
-import Table from './table/table.jsx';
+import Table from './table.jsx';
 import NavBar from './home/navBar.jsx';
 import Header from './home/header.jsx';
 import Footer from './home/footer.jsx';
+import UltimosBuscados from './home/buscados/ultimosBuscados.jsx';
 
 class App extends React.Component {
 		constructor(props) {
@@ -27,6 +28,9 @@ class App extends React.Component {
 							<Buscador callBack={this.setCanchas}/>
 							<hr />
 							<Table canchas={this.state.canchas}/>
+							<hr />
+							<UltimosBuscados />
+							<hr />
 							<Footer />
 						</div>
 				);

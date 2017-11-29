@@ -9,8 +9,8 @@ export class footer extends React.Component {
     render() {
         return (
             <footer className="footer">
-				<div className="container">
-					<span className="text-muted">German Dario, Rodrigo Vallaro.</span>
+				<div className="container fondo footer">
+					<label >German Dario, Rodrigo Vallaro.</label>
 				</div>
 			</footer>
         )
