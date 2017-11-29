@@ -30,6 +30,14 @@ let Canchas = {
 		canchaSchema.create(data).then(function(cancha) {
 			console.log(cancha)
 		});
+	},
+	getUltimas: function(res){
+		canchaSchema.find({}).limit(5).exec( 
+			function(err, canchas) {
+				console.log(canchas);
+				res.send(canchas)
+			}
+		);
 	}
 }
 

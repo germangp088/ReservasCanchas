@@ -24,6 +24,10 @@ module.exports = function(app) {
 
 	app.post('/saveCanchaBusqueda', function(req, res){
 		console.log("body",req.body.cancha);
-		canchasController.saveCanchaBusqueda(req.body.cancha)
+		canchasController.saveCanchaBusqueda(req.body.cancha);
+	});
+
+	app.get('/getUltimas', function(req, res, next) {
+		canchasController.getUltimas(res);
 	});
 }
