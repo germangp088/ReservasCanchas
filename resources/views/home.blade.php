@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <section id="reserva" style="">
 	<div>
 	    <div class="about_our_company" style="margin-bottom: 20px;">
@@ -9,10 +10,7 @@
 	    </div>
 	</div>
 
-	@if (Cache::has('canchaDisponible'))
-		<div class="alert alert-danger" role="alert">¡Error! La cancha ya se encuentra reservada!</div>
-		{{ Cache::flush(); }}
-	@endif
+	
 
 		<!-- CARRUSEL DE IMAGENES DE CANCHAS -->
 	<div id="myCarousel" class="carousel slide" data-ride="carousel">

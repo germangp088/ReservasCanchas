@@ -54,4 +54,8 @@
 	    @endguest
 	    </ul>
 	</div>
+	@if (Cache::has('canchaDisponible'))
+		<div class="alert alert-danger" role="alert">¡Error! La cancha ya se encuentra reservada!</div>
+		{{ Cache::flush() }}
+	@endif
 </nav>
